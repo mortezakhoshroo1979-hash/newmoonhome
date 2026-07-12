@@ -1,6 +1,6 @@
 from django.contrib import admin, messages
 from django.utils.html import format_html
-from import_export.admin import ExportMixin, ImportExportModelAdmin
+from import_export.admin import ImportExportModelAdmin
 
 from .models import Brand, Category, Product, ProductImage, ProductThreeD, ProductVideo
 
@@ -37,7 +37,7 @@ class BrandAdmin(admin.ModelAdmin):
 
 
 @admin.register(Product)
-class ProductAdmin(ExportMixin, ImportExportModelAdmin):
+class ProductAdmin(ImportExportModelAdmin):
     list_display = (
         "thumbnail",
         "name",

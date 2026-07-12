@@ -1,5 +1,9 @@
 from django.core.cache import cache
-from django.http import HttpResponseTooManyRequests
+from django.http import HttpResponse
+
+
+class HttpResponseTooManyRequests(HttpResponse):
+    status_code = 429
 
 
 class SimpleRateLimitMiddleware:
