@@ -14,7 +14,7 @@ class ProductListView(SeoContextMixin, ListView):
     seo_description = 'مشاهده لیست کامل محصولات لوکس NEWMOON HOME شامل مبلمان، سرویس خواب، میز و محصولات چوبی.'
 
     def get_queryset(self):
-        queryset = Product.objects.select_related('category', 'brand').filter(is_active=True)
+        queryset = Product.objects.select_related('category', 'brand').prefetch_related('images').filter(is_active=True)
         q = self.request.GET.get('q')
         category = self.request.GET.get('category')
         brand = self.request.GET.get('brand')
@@ -50,6 +50,9 @@ class ProductDetailView(SeoContextMixin, DetailView):
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
 
+    def get_queryset(self):
+        return Product.objects.select_related('category', 'brand').prefetch_related('images', 'videos', 'three_d_files').filter(is_active=True)
+
     def get_seo_title(self):
         return f'{self.object.name} | NEWMOON HOME'
 
@@ -59,6 +62,6 @@ class ProductDetailView(SeoContextMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product = self.object
-        context['related_products'] = Product.objects.filter(category=product.category, is_active=True).exclude(pk=product.pk)[:4]
-        context['recently_viewed'] = Product.objects.filter(is_active=True).exclude(pk=product.pk)[:4]
+        context['related_products'] = Product.objects.select_related('category', 'brand').prefetch_related('images').filter(category=product.category, is_active=True).exclude(pk=product.pk)[:4]
+        context['recently_viewed'] = Product.objects.select_related('category', 'brand').prefetch_related('images').filter(is_active=True).exclude(pk=product.pk)[:4]
         return context

@@ -13,13 +13,23 @@ class OrderWorkflowService:
     @staticmethod
     @transaction.atomic
     def build_order_from_cart(user, address_data):
-        """ساخت سفارش از روی سبد خرید فعال کاربر."""
+        """ساخت سفارش از روی سبد خرید فعال کاربر با قفل تراکنش (select_for_update)."""
         if not user or not user.is_authenticated:
             return None
 
-        cart = Cart.objects.filter(user=user, is_active=True).first()
+        cart = Cart.objects.select_for_update().filter(user=user, is_active=True).first()
         if not cart or not cart.items.exists():
             return None
+
+        cart_items = list(cart.items.select_related('product').all())
+        from products.models import Product
+        product_ids = [item.product_id for item in cart_items if item.product_id]
+        if product_ids:
+            products_map = {
+                p.id: p for p in Product.objects.select_for_update().filter(id__in=product_ids)
+            }
+        else:
+            products_map = {}
 
         order = Order.objects.create(
             user=user,
@@ -33,12 +43,13 @@ class OrderWorkflowService:
             status=Order.STATUS_REGISTERED,
         )
 
-        for cart_item in cart.items.all():
+        for cart_item in cart_items:
+            product = products_map.get(cart_item.product_id, cart_item.product)
             OrderItem.objects.create(
                 order=order,
-                product=cart_item.product,
-                product_name=cart_item.product.name,
-                sku=cart_item.product.sku,
+                product=product,
+                product_name=product.name if product else cart_item.product_name,
+                sku=product.sku if product else cart_item.sku,
                 quantity=cart_item.quantity,
                 selected_options=cart_item.selected_options,
                 unit_price_snapshot=cart_item.unit_price,

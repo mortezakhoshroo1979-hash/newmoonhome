@@ -61,8 +61,12 @@ class ProductAdmin(ImportExportModelAdmin):
     ]
     inlines = [ProductImageInline, ProductVideoInline, ProductThreeDInline]
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('category', 'brand').prefetch_related('images')
+
     def thumbnail(self, obj):
-        image = obj.images.filter(is_feature=True).first() or obj.images.first()
+        images = list(obj.images.all())
+        image = next((img for img in images if img.is_feature), images[0] if images else None)
         if image and image.image:
             return format_html('<img src="{}" width="50" height="50" style="border-radius:6px;object-fit:cover;" />', image.image.url)
         return "-"
