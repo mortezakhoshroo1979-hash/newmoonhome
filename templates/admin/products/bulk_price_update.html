@@ -1,0 +1,29 @@
+{% extends 'admin/base_custom.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 class="mb-4">تغییرات گروهی قیمت</h1>
+<div class="card admin-card mb-4"><div class="card-body">{% crispy form %}</div></div>
+{% if preview_rows %}
+<div class="card admin-card">
+    <div class="card-header">پیش‌نمایش تغییرات</div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead><tr><th>محصول</th><th>قیمت قبل</th><th>قیمت بعد</th><th>قیمت ویژه قبل</th><th>قیمت ویژه بعد</th></tr></thead>
+                <tbody>
+                    {% for row in preview_rows %}
+                    <tr>
+                        <td>{{ row.product.name }}</td>
+                        <td>{{ row.old_price }}</td>
+                        <td>{{ row.new_price }}</td>
+                        <td>{{ row.old_special_price|default:'-' }}</td>
+                        <td>{{ row.new_special_price|default:'-' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

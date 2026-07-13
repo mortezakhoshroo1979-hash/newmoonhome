@@ -1,0 +1,26 @@
+{% extends 'admin/base_custom.html' %}
+{% block content %}
+<h1 class="mb-4">مدیریت محصولات</h1>
+<form method="get" class="card admin-card mb-4"><div class="card-body">{{ filterset.form.as_p }}<button class="btn btn-primary">فیلتر</button></div></form>
+<div class="card admin-card">
+    <div class="card-body table-responsive">
+        <table class="table table-striped align-middle">
+            <thead><tr><th>نام</th><th>SKU</th><th>دسته</th><th>برند</th><th>قیمت</th><th>ویژه</th><th>موجودی</th><th>وضعیت</th></tr></thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.sku }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.brand }}</td>
+                    <td>{{ product.base_price }}</td>
+                    <td>{{ product.special_price|default:'-' }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>{% if product.is_active %}فعال{% else %}غیرفعال{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

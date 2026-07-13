@@ -1,0 +1,13 @@
+{% extends 'admin/base_custom.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 class="mb-4">تغییر گروهی وضعیت سفارشات</h1>
+<div class="card admin-card mb-4"><div class="card-body">{% crispy form %}</div></div>
+{% if preview_rows %}
+<div class="card admin-card"><div class="card-header">پیش‌نمایش</div><div class="card-body table-responsive">
+<table class="table table-bordered"><thead><tr><th>سفارش</th><th>وضعیت فعلی</th><th>وضعیت جدید</th></tr></thead><tbody>
+{% for row in preview_rows %}<tr><td>{{ row.order.order_number }}</td><td>{{ row.old_status }}</td><td>{{ row.new_status }}</td></tr>{% endfor %}
+</tbody></table>
+</div></div>
+{% endif %}
+{% endblock %}

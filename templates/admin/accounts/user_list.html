@@ -1,0 +1,23 @@
+{% extends 'admin/base_custom.html' %}
+{% block content %}
+<h1 class="mb-4">مدیریت کاربران</h1>
+<form method="get" class="card admin-card mb-4"><div class="card-body">{{ filterset.form.as_p }}<button class="btn btn-primary">فیلتر</button></div></form>
+<div class="card admin-card"><div class="card-body table-responsive">
+<table class="table table-striped">
+<thead><tr><th>کاربر</th><th>موبایل</th><th>تایید</th><th>رتبه</th><th>امتیاز</th><th>تعداد خرید</th><th>مبلغ کل</th><th>جزئیات</th></tr></thead>
+<tbody>
+{% for user in users %}
+<tr>
+<td>{{ user.username }}</td>
+<td>{{ user.phone }}</td>
+<td>{{ user.is_verified }}</td>
+<td>{{ user.profile.rank|default:'-' }}</td>
+<td>{{ user.profile.score|default:'-' }}</td>
+<td>{{ user.orders_count }}</td>
+<td>{{ user.total_spent|default:'0' }}</td>
+<td><a class="btn btn-sm btn-outline-dark" href="{% url 'custom_admin:user_insights' user.pk %}">نمایش</a></td>
+</tr>
+{% endfor %}
+</tbody></table>
+</div></div>
+{% endblock %}

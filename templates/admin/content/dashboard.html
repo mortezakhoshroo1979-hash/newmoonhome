@@ -1,0 +1,9 @@
+{% extends 'admin/base_custom.html' %}
+{% block content %}
+<h1 class="mb-4">مدیریت محتوا</h1>
+<div class="row g-3">
+<div class="col-md-6"><div class="card admin-card"><div class="card-header">اسلایدرها</div><div class="card-body"><ul>{% for item in sliders %}<li>{{ item.sort_order }} - {{ item.title }}</li>{% endfor %}</ul><p class="text-muted">برای Drag & Drop می‌توان در مرحله بعد SortableJS اضافه کرد.</p></div></div></div>
+<div class="col-md-6"><div class="card admin-card"><div class="card-header">بنرها</div><div class="card-body"><ul>{% for item in banners %}<li>{{ item.sort_order }} - {{ item.title }}</li>{% endfor %}</ul></div></div></div>
+</div>
+<div class="card admin-card mt-4"><div class="card-header">نظرات اخیر</div><div class="card-body"><ul>{% for c in comments %}<li>{{ c.post.title }} - {{ c.name }} - {% if c.is_approved %}تایید شده{% else %}در انتظار{% endif %}</li>{% endfor %}</ul></div></div>
+{% endblock %}

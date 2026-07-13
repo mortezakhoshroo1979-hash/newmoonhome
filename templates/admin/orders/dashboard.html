@@ -1,0 +1,18 @@
+{% extends 'admin/base_custom.html' %}
+{% block content %}
+<h1 class="mb-4">داشبورد سفارشات</h1>
+<div class="row g-3 mb-4">
+    <div class="col-md-6"><div class="card admin-card"><div class="card-body"><h5>تعداد سفارش</h5><h2>{{ orders_count }}</h2></div></div></div>
+    <div class="col-md-6"><div class="card admin-card"><div class="card-body"><h5>جمع فروش</h5><h2>{{ total_sales }}</h2></div></div></div>
+</div>
+<div class="card admin-card"><div class="card-header">نمودار وضعیت سفارشات</div><div class="card-body"><canvas id="ordersChart"></canvas></div></div>
+<script>
+const statusData = {{ status_counts|safe }};
+const labels = statusData.map(x => x.status);
+const values = statusData.map(x => x.count);
+new Chart(document.getElementById('ordersChart'), {
+    type: 'bar',
+    data: { labels: labels, datasets: [{ label: 'تعداد سفارش', data: values, backgroundColor: '#c9a84c' }] }
+});
+</script>
+{% endblock %}

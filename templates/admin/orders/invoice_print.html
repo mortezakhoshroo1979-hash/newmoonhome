@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl"><head><meta charset="UTF-8"><title>فاکتور {{ order.order_number }}</title><style>body{font-family:tahoma;padding:30px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:8px}</style></head><body>
+<h1>فاکتور سفارش {{ order.order_number }}</h1>
+<p>گیرنده: {{ order.receiver_name }} | تلفن: {{ order.receiver_phone }}</p>
+<p>آدرس: {{ order.province }} - {{ order.city }} - {{ order.address }}</p>
+<table><thead><tr><th>محصول</th><th>تعداد</th><th>قیمت واحد</th><th>جمع</th></tr></thead><tbody>{% for item in order.items.all %}<tr><td>{{ item.product_name }}</td><td>{{ item.quantity }}</td><td>{{ item.unit_price_snapshot }}</td><td>{{ item.total_price_snapshot }}</td></tr>{% endfor %}</tbody></table>
+<h3>مبلغ کل: {{ order.total_amount }}</h3>
+<script>window.print()</script>
+</body></html>

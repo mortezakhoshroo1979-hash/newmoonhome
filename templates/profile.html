@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}پروفایل کاربری | NEWMOON HOME{% endblock %}
+{% block content %}
+<section class="page-hero-sm ultra-page-hero">
+    <div class="container">
+        <span class="section-kicker text-light-gold">Private Account</span>
+        <h1>پروفایل ممتاز کاربر</h1>
+        <p>داشبوردی هماهنگ با زبان بصری برند برای تجربه کاربری سطح‌بالا.</p>
+    </div>
+</section>
+<section class="section-space">
+    <div class="container ultra-profile-layout">
+        <aside class="profile-sidebar sticky-card ultra-profile-sidebar">
+            <div class="profile-card-head text-center">
+                <div class="profile-avatar">ن</div>
+                <h5>نسترن احمدی</h5>
+                <p>کد معرف: NMH-REF-204</p>
+            </div>
+            <ul class="profile-menu list-unstyled">
+                <li><a class="active" href="#">داشبورد</a></li>
+                <li><a href="#">سفارشات</a></li>
+                <li><a href="#">آدرس‌ها</a></li>
+                <li><a href="#">علاقه‌مندی‌ها</a></li>
+                <li><a href="#">تنظیمات حساب</a></li>
+            </ul>
+        </aside>
+
+        <div>
+            <div class="ultra-stats-row">
+                <div class="mini-stat-card"><span>امتیاز</span><strong>2450</strong></div>
+                <div class="mini-stat-card"><span>رتبه</span><strong>طلایی</strong></div>
+                <div class="mini-stat-card"><span>تعداد سفارش</span><strong>12</strong></div>
+            </div>
+
+            <div class="content-panel ultra-content-panel mt-4">
+                <h4>تاریخچه سفارشات</h4>
+                <div class="table-responsive">
+                    <table class="table luxury-table">
+                        <thead><tr><th>شماره سفارش</th><th>تاریخ</th><th>وضعیت</th><th>مبلغ</th></tr></thead>
+                        <tbody>
+                            <tr><td>NMH-20260601</td><td>1405/04/01</td><td><span class="status-chip success">تحویل</span></td><td>48,000,000</td></tr>
+                            <tr><td>NMH-20260520</td><td>1405/03/20</td><td><span class="status-chip warning">آماده‌سازی</span></td><td>26,000,000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-panel ultra-content-panel mt-4">
+                <h4>علاقه‌مندی‌ها</h4>
+                <div class="row g-3">
+                    <div class="col-md-6"><div class="compact-card horizontal ultra-horizontal-card"><div class="ultra-mini-thumb"></div><div class="compact-card-body"><h4>مبل آتریا</h4><span>48,000,000 ریال</span></div></div></div>
+                    <div class="col-md-6"><div class="compact-card horizontal ultra-horizontal-card"><div class="ultra-mini-thumb"></div><div class="compact-card-body"><h4>کنسول نوا</h4><span>19,000,000 ریال</span></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

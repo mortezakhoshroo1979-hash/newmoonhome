@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEWMOON HOME - Preview</title>
+    <style>
+        :root {
+            --brand-green: #1a3c2a;
+            --brand-green-soft: #244b36;
+            --brand-gold: #c9a84c;
+            --brand-gold-soft: #e2cc89;
+            --brand-bg: #fbf9f4;
+            --brand-text: #233128;
+            --brand-muted: #6f766f;
+            --card-bg: #ffffff;
+            --border-soft: rgba(201, 168, 76, 0.18);
+            --shadow-soft: 0 14px 35px rgba(26, 60, 42, 0.08);
+            --shadow-gold: 0 16px 36px rgba(201, 168, 76, 0.18);
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --transition: all .35s ease;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--brand-bg);
+            color: var(--brand-text);
+            font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+            line-height: 1.9;
+            text-rendering: optimizeLegibility;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            background: #10251a;
+            color: var(--brand-gold);
+            font-size: 13px;
+            padding: 10px 0;
+        }
+        .topbar-inner, .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .topbar a { color: var(--brand-gold); }
+        .socials { display: flex; gap: 10px; flex-wrap: wrap; }
+        .socials span {
+            border: 1px solid rgba(201,168,76,.25);
+            border-radius: 999px;
+            padding: 4px 10px;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--brand-green);
+            box-shadow: 0 10px 25px rgba(0,0,0,.08);
+        }
+        .header-inner {
+            padding: 18px 0;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+        .brand-logo {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            border: 2px solid var(--brand-gold);
+            overflow: hidden;
+            background: #0f2418;
+            box-shadow: 0 10px 24px rgba(0,0,0,.2);
+            flex-shrink: 0;
+        }
+        .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .brand-text h1 {
+            margin: 0;
+            color: var(--brand-gold);
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+        .brand-text p {
+            margin: 2px 0 0;
+            color: rgba(255,255,255,.72);
+            font-size: 12px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: #f5f3ee;
+            padding: 8px 12px;
+            border-radius: 999px;
+            transition: var(--transition);
+        }
+        .nav a:hover { color: var(--brand-gold); background: rgba(201,168,76,.08); }
+
+        .tools {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tool {
+            color: var(--brand-gold);
+            border: 1px solid rgba(201,168,76,.25);
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-size: 13px;
+            background: rgba(255,255,255,.03);
+        }
+
+        .hero {
+            min-height: 74vh;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(rgba(16, 37, 26, .72), rgba(16, 37, 26, .72)),
+                radial-gradient(circle at top right, rgba(201,168,76,.18), transparent 40%),
+                linear-gradient(135deg, #173625, #2a5640);
+            color: #fff;
+            overflow: hidden;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 30px;
+            align-items: center;
+            padding: 60px 0;
+        }
+        .kicker {
+            color: var(--brand-gold);
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+        .hero h2 {
+            font-size: clamp(32px, 5vw, 58px);
+            margin: 0 0 18px;
+            line-height: 1.2;
+        }
+        .hero p {
+            color: rgba(255,255,255,.84);
+            margin: 0 0 26px;
+            font-size: 16px;
+            max-width: 580px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 13px 22px;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-soft));
+            color: #1a1a1a;
+            box-shadow: var(--shadow-gold);
+        }
+        .btn-outline {
+            border: 1px solid var(--brand-gold);
+            color: var(--brand-gold);
+            background: transparent;
+        }
+        .btn:hover { transform: translateY(-2px); }
+
+        .hero-card {
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(201,168,76,.22);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+        .hero-card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .mini-card {
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(201,168,76,.16);
+            border-radius: 18px;
+            padding: 16px;
+        }
+        .mini-card strong {
+            display: block;
+            color: var(--brand-gold);
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        .mini-card span { color: rgba(255,255,255,.78); font-size: 13px; }
+
+        .section {
+            padding: 88px 0;
+        }
+        .section-head {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+        .section-head h3 {
+            margin: 0 0 10px;
+            color: var(--brand-green);
+            font-size: 34px;
+        }
+        .section-head p {
+            margin: 0 auto;
+            max-width: 680px;
+            color: var(--brand-muted);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-gold);
+            border-color: rgba(201,168,76,.45);
+        }
+        .product-thumb {
+            height: 250px;
+            background: linear-gradient(135deg, #e7e1d3, #d8d1c4);
+            position: relative;
+        }
+        .product-thumb::before {
+            content: "NEWMOON HOME";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(26,60,42,.35);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: var(--brand-green);
+            color: var(--brand-gold);
+            border-radius: 999px;
+            padding: 7px 12px;
+            font-size: 12px;
+        }
+        .product-body {
+            padding: 20px;
+        }
+        .product-body h4 {
+            margin: 0 0 10px;
+            color: var(--brand-green);
+            font-size: 19px;
+        }
+        .product-body p {
+            margin: 0 0 14px;
+            color: var(--brand-muted);
+            font-size: 14px;
+        }
+        .product-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .price {
+            color: var(--brand-green);
+            font-weight: bold;
+            font-size: 17px;
+        }
+        .wish {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-gold);
+        }
+
+        .banner {
+            background: linear-gradient(135deg, var(--brand-green), var(--brand-green-soft));
+            color: #fff;
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+        .banner h3 { margin: 0 0 10px; font-size: 30px; }
+        .banner p { margin: 0; color: rgba(255,255,255,.82); }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .feature {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+        }
+        .feature strong {
+            color: var(--brand-green);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        .feature p { margin: 0; color: var(--brand-muted); }
+
+        .newsletter {
+            background: #fff;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-soft);
+            padding: 42px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+        }
+        .newsletter h3 { margin: 0 0 10px; color: var(--brand-green); font-size: 30px; }
+        .newsletter p { color: var(--brand-muted); margin: 0 auto 22px; max-width: 620px; }
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .newsletter-form input {
+            width: min(420px, 100%);
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border-soft);
+            font-size: 14px;
+        }
+
+        .footer {
+            background: #10251a;
+            color: rgba(255,255,255,.82);
+            margin-top: 80px;
+            padding-top: 54px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr 1fr;
+            gap: 24px;
+        }
+        .footer h4 {
+            color: var(--brand-gold);
+            margin-top: 0;
+            margin-bottom: 14px;
+            font-size: 18px;
+        }
+        .footer p, .footer li {
+            color: rgba(255,255,255,.75);
+            font-size: 14px;
+        }
+        .footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer li { margin-bottom: 10px; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.08);
+            margin-top: 28px;
+            padding: 18px 0;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-grid,
+            .footer-grid,
+            .product-grid,
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 720px) {
+            .hero-grid,
+            .footer-grid,
+            .product-grid,
+            .features {
+                grid-template-columns: 1fr;
+            }
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav,
+            .tools,
+            .topbar-inner {
+                justify-content: center;
+            }
+            .banner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .hero h2 {
+                font-size: 34px;
+            }
+            .brand {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div class="container topbar-inner">
+            <div>
+                تماس: <a href="tel:+982100000000">021-00000000</a>
+                | ایمیل: <a href="mailto:info@newmoonhome.ir">info@newmoonhome.ir</a>
+            </div>
+            <div class="socials">
+                <span>Instagram</span>
+                <span>Telegram</span>
+                <span>WhatsApp</span>
+                <span>LinkedIn</span>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <div class="brand-logo">
+                    <img src="static/assets/logo.png" alt="NEWMOON HOME Logo">
+                </div>
+                <div class="brand-text">
+                    <h1>NEWMOON HOME</h1>
+                    <p>Luxury Wood & Furniture</p>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <a href="#">خانه</a>
+                <a href="#">محصولات</a>
+                <a href="#">درباره ما</a>
+                <a href="#">وبلاگ</a>
+                <a href="#">تماس با ما</a>
+            </nav>
+
+            <div class="tools">
+                <span class="tool">ورود / ثبت‌نام</span>
+                <span class="tool">علاقه‌مندی‌ها</span>
+                <span class="tool">سبد خرید • 12,800,000 ریال</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="kicker">Luxury Living</span>
+                <h2>تجربه‌ای لوکس از مبلمان و محصولات چوبی برای خانه شما</h2>
+                <p>
+                    NEWMOON HOME ترکیبی از طراحی اصیل، متریال ممتاز و زیبایی ماندگار را ارائه می‌دهد.
+                    این نسخه برای preview مستقیم و بدون نیاز به فونت خارجی یا Django ساخته شده است.
+                </p>
+                <div class="hero-actions">
+                    <a href="#products" class="btn btn-primary">مشاهده محصولات</a>
+                    <a href="#footer" class="btn btn-outline">تماس با ما</a>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <div class="hero-card-grid">
+                    <div class="mini-card">
+                        <strong>طراحی سفارشی</strong>
+                        <span>انتخاب سایز، رنگ، چوب و پارچه</span>
+                    </div>
+                    <div class="mini-card">
+                        <strong>کیفیت ممتاز</strong>
+                        <span>متریال با دوام و اجرای دقیق</span>
+                    </div>
+                    <div class="mini-card">
+                        <strong>ارسال مطمئن</strong>
+                        <span>بسته‌بندی امن و تحویل حرفه‌ای</span>
+                    </div>
+                    <div class="mini-card">
+                        <strong>هویت برند</strong>
+                        <span>سبز تیره و طلایی، لوکس و ماندگار</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="products">
+        <div class="container">
+            <div class="section-head">
+                <span class="kicker">Selected Collection</span>
+                <h3>محصولات ویژه</h3>
+                <p>نمایی از سبک طراحی سایت شما با کارت‌های لوکس، رنگ سازمانی و چیدمان ریسپانسیو</p>
+            </div>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-thumb"><span class="badge">ویژه</span></div>
+                    <div class="product-body">
+                        <h4>مبل لوکس آتریا</h4>
+                        <p>ترکیب طراحی مدرن، چوب ممتاز و پارچه سفارشی برای خانه‌های خاص.</p>
+                        <div class="product-meta">
+                            <span class="price">48,000,000 ریال</span>
+                            <span class="wish">♡</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-thumb"><span class="badge">جدید</span></div>
+                    <div class="product-body">
+                        <h4>میز جلو مبلی مون</h4>
+                        <p>فرم مینیمال با پرداخت لوکس و هماهنگ با فضای داخلی مدرن.</p>
+                        <div class="product-meta">
+                            <span class="price">22,500,000 ریال</span>
+                            <span class="wish">♡</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-thumb"><span class="badge">پرفروش</span></div>
+                    <div class="product-body">
+                        <h4>سرویس خواب الیت</h4>
+                        <p>طراحی آرام، اصیل و باکیفیت برای اتاق خواب‌های لوکس و مینیمال.</p>
+                        <div class="product-meta">
+                            <span class="price">76,000,000 ریال</span>
+                            <span class="wish">♡</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-thumb"><span class="badge">سفارشی</span></div>
+                    <div class="product-body">
+                        <h4>کنسول نوا</h4>
+                        <p>جزئیات ظریف، چوب طبیعی و طراحی منطبق با فضاهای معاصر.</p>
+                        <div class="product-meta">
+                            <span class="price">19,000,000 ریال</span>
+                            <span class="wish">♡</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="banner">
+                <div>
+                    <span class="kicker" style="color:#f2dfab">Exclusive Offer</span>
+                    <h3>طراحی گرم، اصیل و لوکس برای خانه‌های خاص</h3>
+                    <p>این نسخه برای پیش‌نمایش مستقیم داخل برنامه طراحی شده و بدون فونت خارجی هم درست نمایش داده می‌شود.</p>
+                </div>
+                <a href="#" class="btn btn-primary">درخواست مشاوره</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <span class="kicker">Why Newmoon</span>
+                <h3>ویژگی‌های برند</h3>
+                <p>ترکیبی از زیبایی بصری، رنگ سازمانی قدرتمند و تجربه کاربری لوکس</p>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <strong>هدر لوکس با هویت برند</strong>
+                    <p>پس‌زمینه سبز تیره، لوگوی تصویری در سمت راست و نوشته‌های طلایی.</p>
+                </div>
+                <div class="feature">
+                    <strong>کارت‌های مینیمال و حرفه‌ای</strong>
+                    <p>فضای سفید کافی، سایه نرم و هاورهای طلایی برای حس پریمیوم.</p>
+                </div>
+                <div class="feature">
+                    <strong>نمایش پایدار در preview</strong>
+                    <p>بدون وابستگی ضروری به فونت آنلاین یا backend برای نمایش ظاهری.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="newsletter">
+                <span class="kicker">Newsletter</span>
+                <h3>عضویت در خبرنامه</h3>
+                <p>برای دریافت پیشنهادهای اختصاصی، کالکشن‌های جدید و اطلاعیه‌های برند ایمیل خود را ثبت کنید.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="ایمیل شما">
+                    <a href="#" class="btn btn-primary">عضویت</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>درباره ما</h4>
+                    <p>
+                        NEWMOON HOME مجموعه‌ای از مبلمان و محصولات چوبی لوکس است که با تمرکز بر کیفیت،
+                        طراحی ماندگار و امکان شخصی‌سازی، تجربه‌ای متفاوت برای خانه شما خلق می‌کند.
+                    </p>
+                </div>
+                <div>
+                    <h4>لینک‌های سریع</h4>
+                    <ul>
+                        <li>درباره ما</li>
+                        <li>تماس با ما</li>
+                        <li>راهنمای خرید</li>
+                        <li>قوانین</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>شبکه‌های اجتماعی</h4>
+                    <ul>
+                        <li>اینستاگرام</li>
+                        <li>تلگرام</li>
+                        <li>واتساپ</li>
+                        <li>یوتیوب</li>
+                        <li>لینکدین</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>اطلاعات تماس</h4>
+                    <ul>
+                        <li>تهران، خیابان نمونه، پلاک ۱۰</li>
+                        <li>021-00000000</li>
+                        <li>info@newmoonhome.ir</li>
+                        <li>ای‌نماد • پرداخت امن • ضمانت اصالت</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                © 2026 NEWMOON HOME — Preview Ready Version
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

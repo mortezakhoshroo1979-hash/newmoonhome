@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}محصولات | NEWMOON HOME{% endblock %}
+{% block content %}
+<section class="page-hero-sm ultra-page-hero">
+    <div class="container">
+        <span class="section-kicker text-light-gold">Curated Collection</span>
+        <h1>لیست محصولات ممتاز</h1>
+        <p>مروری بر محصولات منتخب NEWMOON HOME با چیدمان و ارائه‌ای سطح‌بالا و refined.</p>
+    </div>
+</section>
+
+<section class="section-space">
+    <div class="container">
+        <div class="ultra-list-layout">
+            <aside class="filter-sidebar sticky-card ultra-filter-card">
+                <h4>فیلترهای حرفه‌ای</h4>
+                <div class="filter-group">
+                    <h6>دسته‌بندی</h6>
+                    <label><input type="checkbox"> مبلمان</label>
+                    <label><input type="checkbox"> سرویس خواب</label>
+                    <label><input type="checkbox"> میز و کنسول</label>
+                </div>
+                <div class="filter-group">
+                    <h6>برند</h6>
+                    <label><input type="checkbox"> NEWMOON</label>
+                    <label><input type="checkbox"> PREMIUM WOOD</label>
+                </div>
+                <div class="filter-group">
+                    <h6>رنگ</h6>
+                    <div class="color-swatches">
+                        <span class="swatch" style="background:#1a3c2a"></span>
+                        <span class="swatch" style="background:#c9a84c"></span>
+                        <span class="swatch" style="background:#d8d0c3"></span>
+                        <span class="swatch" style="background:#6b4b3d"></span>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <h6>موجودی</h6>
+                    <label><input type="checkbox"> موجود</label>
+                    <label><input type="checkbox"> سفارشی</label>
+                </div>
+            </aside>
+
+            <div>
+                <div class="toolbar-box ultra-toolbar-box d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+                    <div>
+                        <span class="section-kicker d-block mb-1">Luxury Sorting</span>
+                        <h5 class="mb-0 text-brand-green">کالکشن محصولات</h5>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <select class="form-select toolbar-select">
+                            <option>جدیدترین</option>
+                            <option>پرفروش‌ترین</option>
+                            <option>ارزان‌ترین</option>
+                            <option>گران‌ترین</option>
+                            <option>محبوب‌ترین</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ultra-product-grid">
+                    {% for i in '123456' %}
+                    <article class="ultra-product-card">
+                        <div class="ultra-product-thumb"><span class="ultra-badge">Curated</span></div>
+                        <div class="ultra-product-body">
+                            <h3><a href="/products/detail/">میز کنسول آرتین</a></h3>
+                            <p>چوب طبیعی، شخصیت بصری قوی و هماهنگی عالی با فضاهای معاصر.</p>
+                            <div class="ultra-product-meta">
+                                <span class="price">31,500,000 ریال</span>
+                                <a href="/products/detail/" class="btn btn-brand-outline btn-sm">مشاهده</a>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+
+                <nav class="mt-5">
+                    <ul class="pagination luxury-pagination justify-content-center">
+                        <li class="page-item disabled"><span class="page-link">قبلی</span></li>
+                        <li class="page-item active"><span class="page-link">1</span></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">بعدی</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

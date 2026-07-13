@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <style>
+        /* ÓÒãíäå ÇÎÊÕÇÕí ãÍÕæá ÈÇ ÇÝ˜Ê Glassmorphism */
+        .pd-page { 
+            min-height: 100vh;
+            background-image: url('{% if product.background_image %}{{ product.background_image.url }}{% else %}{{ product.image.url }}{% endif %}');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            position: relative; padding: 60px 0;
+        }
+        .pd-overlay { position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(10,21,17,0.85); z-index: 1; }
+        .pd-content { position: relative; z-index: 2; color: white; }
+        
+        .glass-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); border: 1px solid rgba(201,168,76,0.2); padding: 40px; }
+        
+        /* ÇÓáÇíÏÑ ÇáÑí */
+        .swiper { width: 100%; aspect-ratio: 1/1; border: 1px solid rgba(201,168,76,0.3); }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .text-gold { color: var(--gold) !important; }
+        .price-tag { font-size: 2.2rem; font-weight: bold; color: var(--gold); }
+        .price-usd { font-size: 1.2rem; opacity: 0.6; margin-top: -10px; }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="pd-page" dir="rtl">
+    <div class="pd-overlay"></div>
+    <div class="container pd-content">
+        <div class="glass-card shadow-lg">
+            <div class="row g-5">
+                <!-- ÈÎÔ ÇáÑí ÊÕÇæíÑ -->
+                <div class="col-lg-6">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            {% if product.image %}
+                            <div class="swiper-slide">
+                                <a href="{{ product.image.url }}" class="glightbox">
+                                    <img src="{{ product.image.url }}" alt="{{ product.name_fa }}">
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% for img in product.gallery.all %}
+                            <div class="swiper-slide">
+                                <a href="{{ img.image.url }}" class="glightbox">
+                                    <img src="{{ img.image.url }}" alt="{{ product.name_fa }}">
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next text-gold"></div>
+                        <div class="swiper-button-prev text-gold"></div>
+                    </div>
+                </div>
+
+                <!-- ÈÎÔ ÇØáÇÚÇÊ ãÍÕæá -->
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-1">{{ product.name_fa }}</h1>
+                    <div class="d-flex gap-3 mb-4 opacity-50 small" dir="ltr">
+                        {% if product.name_en %}<span>{{ product.name_en }}</span>{% endif %}
+                        {% if product.name_ar %}<span dir="rtl">| {{ product.name_ar }}</span>{% endif %}
+                    </div>
+                    
+                    <div class="price-tag mb-1">{{ product.price }} ÑíÇá</div>
+                    {% if product.price_usd > 0 %}
+                        <div class="price-usd mb-4 text-gold">(${{ product.price_usd }})</div>
+                    {% endif %}
+
+                    <div class="mb-5 opacity-75 fw-light" style="line-height: 2;">
+                        {{ product.description_fa|linebreaks }}
+                    </div>
+
+                    <div class="d-grid">
+                        <a href="{% url 'store:cart_add' product.id %}" class="btn btn-luxury btn-lg py-3 shadow">ÇÝÒæÏä Èå ÓÈÏ ÎÑíÏ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+        loop: true,
+    });
+    const lightbox = GLightbox({ selector: '.glightbox' });
+</script>
+{% endblock %}

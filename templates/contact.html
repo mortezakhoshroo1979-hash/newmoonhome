@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}تماس با ما | NEWMOON HOME{% endblock %}
+{% block content %}
+<section class="page-hero-sm"><div class="container"><h1>تماس با ما</h1><p>برای مشاوره، سفارش ویژه یا همکاری با ما در ارتباط باشید.</p></div></section>
+<section class="section-space">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="content-panel">
+                    <h3>فرم تماس</h3>
+                    <form class="luxury-form">
+                        <div class="row g-3">
+                            <div class="col-md-6"><label>نام و نام خانوادگی</label><input type="text" class="form-control"></div>
+                            <div class="col-md-6"><label>ایمیل</label><input type="email" class="form-control"></div>
+                            <div class="col-md-6"><label>شماره تماس</label><input type="tel" class="form-control"></div>
+                            <div class="col-md-6"><label>موضوع</label><input type="text" class="form-control"></div>
+                            <div class="col-12"><label>پیام</label><textarea class="form-control" rows="6"></textarea></div>
+                        </div>
+                        <button class="btn btn-brand mt-4">ارسال پیام</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="content-panel h-100">
+                    <h3>اطلاعات تماس</h3>
+                    <ul class="footer-contact list-unstyled mt-4">
+                        <li><i class="fa-solid fa-location-dot"></i> تهران، خیابان نمونه، پلاک ۱۰</li>
+                        <li><i class="fa-solid fa-phone"></i> 021-00000000</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@newmoonhome.ir</li>
+                    </ul>
+                    <div class="map-placeholder mt-4">نقشه / موقعیت فروشگاه</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

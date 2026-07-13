@@ -1,0 +1,42 @@
+:root {
+    --brand-green: #1a3c2a;
+    --brand-gold: #c9a84c;
+    --brand-bg: #f7f5ef;
+}
+body.admin-body {
+    background: var(--brand-bg);
+    font-family: Tahoma, sans-serif;
+}
+.sidebar {
+    min-height: 100vh;
+    background: var(--brand-green);
+}
+.sidebar .nav-link {
+    color: #fff;
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+.sidebar .nav-link:hover,
+.sidebar .nav-link:focus {
+    background: rgba(201, 168, 76, 0.18);
+    color: var(--brand-gold);
+}
+.admin-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+.admin-card .card-header {
+    background: var(--brand-green);
+    color: #fff;
+    border-radius: 16px 16px 0 0 !important;
+}
+.btn-primary,
+button.btn-primary {
+    background: var(--brand-gold);
+    border-color: var(--brand-gold);
+    color: #1d1d1d;
+}
+.table thead th {
+    background: rgba(26, 60, 42, 0.08);
+}

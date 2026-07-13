@@ -1,0 +1,15 @@
+{% extends 'admin/base_custom.html' %}
+{% block content %}
+<h1 class="mb-4">جزئیات کاربر: {{ target_user.username }}</h1>
+<div class="row g-3">
+<div class="col-md-6"><div class="card admin-card"><div class="card-header">اطلاعات پایه</div><div class="card-body">
+<p>نام کاربری: {{ target_user.username }}</p>
+<p>ایمیل: {{ target_user.email }}</p>
+<p>موبایل: {{ target_user.phone }}</p>
+<p>امتیاز: {{ target_user.profile.score|default:'-' }}</p>
+<p>رتبه: {{ target_user.profile.rank|default:'-' }}</p>
+</div></div></div>
+<div class="col-md-6"><div class="card admin-card"><div class="card-header">معرف‌ها</div><div class="card-body"><ul>{% for item in referrals %}<li>{{ item.referral_code }} | {{ item.reward_amount }}</li>{% empty %}<li>موردی نیست</li>{% endfor %}</ul></div></div></div>
+</div>
+<div class="card admin-card mt-4"><div class="card-header">سفارشات</div><div class="card-body"><ul>{% for order in orders %}<li>{{ order.order_number }} - {{ order.total_amount }}</li>{% empty %}<li>سفارشی ثبت نشده است.</li>{% endfor %}</ul></div></div>
+{% endblock %}

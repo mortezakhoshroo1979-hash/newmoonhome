@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block title %}جزئیات محصول | NEWMOON HOME{% endblock %}
+{% block content %}
+<section class="page-hero-sm ultra-page-hero">
+    <div class="container">
+        <span class="section-kicker text-light-gold">Signature Product</span>
+        <h1>جزئیات محصول ممتاز</h1>
+        <p>نمایش refined برای محصول با تأکید بر کیفیت، متریال و تجربه premium.</p>
+    </div>
+</section>
+
+<section class="section-space">
+    <div class="container">
+        <div class="ultra-detail-grid">
+            <div class="card ultra-gallery-card">
+                <div class="ultra-gallery-main"></div>
+                <div class="ultra-gallery-thumbs">
+                    <div class="ultra-thumb"></div>
+                    <div class="ultra-thumb"></div>
+                    <div class="ultra-thumb"></div>
+                    <div class="ultra-thumb"></div>
+                </div>
+            </div>
+
+            <div class="card ultra-detail-info">
+                <span class="section-kicker">Luxury Collection</span>
+                <h1 class="product-title-lg">مبل لوکس مدل آتریا</h1>
+                <div class="rating-stock d-flex flex-wrap align-items-center gap-3 mb-3">
+                    <div class="stars text-gold">★★★★★ <span class="text-muted">4.8</span></div>
+                    <span class="mini-stock success">موجود در انبار</span>
+                </div>
+                <div class="price-box mb-4 ultra-price-box">
+                    <span class="current-price">48,000,000 ریال</span>
+                    <del class="old-price">52,000,000 ریال</del>
+                </div>
+                <p class="product-short-desc">محصولی با شخصیت بصری قوی، ساختار چوبی ممتاز و امکان شخصی‌سازی کامل برای سبک زندگی لوکس.</p>
+
+                <div class="customization-box mt-4 ultra-custom-box">
+                    <h5>شخصی‌سازی محصول</h5>
+                    <div class="option-group">
+                        <label>سایز</label>
+                        <select class="form-select">
+                            <option>استاندارد</option>
+                            <option>بزرگ</option>
+                            <option>سفارشی</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>رنگ</label>
+                        <div class="choice-pills">
+                            <button type="button" class="active">سبز تیره</button>
+                            <button type="button">بژ طلایی</button>
+                            <button type="button">گردویی</button>
+                        </div>
+                    </div>
+                    <div class="option-group">
+                        <label>نوع پارچه</label>
+                        <select class="form-select">
+                            <option>استاندارد</option>
+                            <option>مخمل</option>
+                            <option>لوکس وارداتی</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="product-actions d-flex flex-wrap gap-3 mt-4">
+                    <div class="qty-box">
+                        <button type="button">-</button>
+                        <input type="number" min="1" value="1">
+                        <button type="button">+</button>
+                    </div>
+                    <button class="btn btn-brand pulse-on-hover">افزودن به سبد خرید</button>
+                    <button class="btn btn-brand-outline">علاقه‌مندی</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-tabs mt-5">
+            <ul class="nav nav-pills luxury-tabs mb-4">
+                <li class="nav-item"><button class="nav-link active">توضیحات</button></li>
+                <li class="nav-item"><button class="nav-link">مشخصات فنی</button></li>
+                <li class="nav-item"><button class="nav-link">نظرات</button></li>
+            </ul>
+            <div class="tab-content luxury-tab-content ultra-rich-pane">
+                <p>
+                    این صفحه با هدف انتقال کیفیت ادراکی بالاتر طراحی شده است؛ به‌گونه‌ای که محصول نه فقط دیده شود،
+                    بلکه حس ممتاز بودن آن در ریتم صفحه و فضای اطرافش نیز احساس شود.
+                </p>
+            </div>
+        </div>
+
+        <section class="related-products mt-5">
+            <div class="section-head"><h2>محصولات مرتبط</h2></div>
+            <div class="ultra-product-grid">
+                {% for i in '1234' %}
+                <article class="ultra-product-card">
+                    <div class="ultra-product-thumb"></div>
+                    <div class="ultra-product-body">
+                        <h3>میز مدرن هارمونیا</h3>
+                        <p>فرم refined و شخصیت آرام برای فضاهای ممتاز.</p>
+                        <div class="ultra-product-meta"><span class="price">26,000,000 ریال</span></div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</section>
+{% endblock %}

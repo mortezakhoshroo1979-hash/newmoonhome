@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{{ seo_title|default:'NEWMOON HOME | فروشگاه لوکس مبلمان و محصولات چوبی' }}{% endblock %}</title>
+    <meta name="description" content="{{ seo_description|default:'فروشگاه لوکس NEWMOON HOME برای مبلمان، محصولات چوبی، دکوراسیون داخلی و سفارش‌های شخصی‌سازی‌شده.' }}">
+    <meta name="keywords" content="مبلمان لوکس, دکوراسیون داخلی, محصولات چوبی, NEWMOON HOME, سرویس خواب, میز ناهارخوری">
+    <meta name="author" content="NEWMOON HOME">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="theme-color" content="#1a3c2a">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ seo_title|default:'NEWMOON HOME | فروشگاه لوکس مبلمان و محصولات چوبی' }}">
+    <meta property="og:description" content="{{ seo_description|default:'خرید آنلاین مبلمان لوکس و محصولات چوبی با طراحی خاص و قابلیت شخصی‌سازی.' }}">
+    <meta property="og:locale" content="fa_IR">
+    <meta property="og:site_name" content="NEWMOON HOME">
+    <meta property="og:image" content="{% static 'assets/logo.png' %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri|default:'/' }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ seo_title|default:'NEWMOON HOME | فروشگاه لوکس مبلمان و محصولات چوبی' }}">
+    <meta name="twitter:description" content="{{ seo_description|default:'فروشگاه آنلاین مبلمان و محصولات چوبی با پالت برند سبز تیره و طلایی.' }}">
+    <meta name="twitter:image" content="{% static 'assets/logo.png' %}">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "NEWMOON HOME",
+      "image": "{% static 'assets/logo.png' %}",
+      "description": "فروشگاه لوکس مبلمان و محصولات چوبی با امکان شخصی‌سازی محصولات.",
+      "telephone": "+98-21-00000000",
+      "email": "info@newmoonhome.ir",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "تهران، خیابان نمونه، پلاک ۱۰",
+        "addressLocality": "تهران",
+        "addressCountry": "IR"
+      },
+      "sameAs": [
+        "https://instagram.com/newmoonhome",
+        "https://t.me/newmoonhome",
+        "https://linkedin.com/company/newmoonhome"
+      ]
+    }
+    </script>
+
+    <!--
+        در preview داخلی این محیط، منابع شبکه‌ای ممکن است لود نشوند.
+        بنابراین به‌جای تکیه به فونت‌های خارجی، از استایل لوکال و فونت fallback استفاده می‌کنیم.
+        برای مرورگر واقعی می‌توان این لینک‌ها را بعداً دوباره فعال کرد.
+    -->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="site-wrapper">
+        {% include 'includes/header.html' %}
+
+        <main class="site-main">
+            {% block content %}{% endblock %}
+        </main>
+
+        {% include 'includes/footer.html' %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

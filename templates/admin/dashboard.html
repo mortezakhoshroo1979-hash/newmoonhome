@@ -1,0 +1,23 @@
+{% extends 'admin/base_custom.html' %}
+{% block content %}
+<h1 class="mb-4">داشبورد مدیریت</h1>
+<div class="row g-3">
+    <div class="col-md-3"><div class="card admin-card"><div class="card-body"><h5>محصولات</h5><h2>{{ products_count }}</h2></div></div></div>
+    <div class="col-md-3"><div class="card admin-card"><div class="card-body"><h5>سفارشات</h5><h2>{{ orders_count }}</h2></div></div></div>
+    <div class="col-md-3"><div class="card admin-card"><div class="card-body"><h5>مقالات</h5><h2>{{ posts_count }}</h2></div></div></div>
+    <div class="col-md-3"><div class="card admin-card"><div class="card-body"><h5>پیام‌ها</h5><h2>{{ messages_count }}</h2></div></div></div>
+</div>
+<div class="card admin-card mt-4">
+    <div class="card-header">آخرین سفارشات</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead><tr><th>شماره</th><th>کاربر</th><th>وضعیت</th><th>مبلغ</th></tr></thead>
+            <tbody>
+                {% for order in recent_orders %}
+                <tr><td>{{ order.order_number }}</td><td>{{ order.user }}</td><td>{{ order.get_status_display }}</td><td>{{ order.total_amount }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

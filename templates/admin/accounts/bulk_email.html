@@ -1,0 +1,9 @@
+{% extends 'admin/base_custom.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 class="mb-4">ارسال ایمیل گروهی</h1>
+<div class="card admin-card mb-4"><div class="card-body">{% crispy form %}</div></div>
+{% if users %}
+<div class="card admin-card"><div class="card-header">کاربران انتخاب‌شده</div><div class="card-body"><ul>{% for user in users %}<li>{{ user.username }} - {{ user.email }}</li>{% endfor %}</ul></div></div>
+{% endif %}
+{% endblock %}

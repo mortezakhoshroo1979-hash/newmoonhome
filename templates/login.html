@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}ورود | NEWMOON HOME{% endblock %}
+{% block content %}
+<section class="auth-section section-space">
+    <div class="container">
+        <div class="auth-card mx-auto">
+            <div class="text-center mb-4">
+                <span class="section-kicker">Welcome Back</span>
+                <h1>ورود به حساب کاربری</h1>
+            </div>
+            <form class="luxury-form">
+                <div class="mb-3"><label>موبایل یا ایمیل</label><input type="text" class="form-control"></div>
+                <div class="mb-3"><label>رمز عبور</label><input type="password" class="form-control"></div>
+                <button class="btn btn-brand w-100">ورود</button>
+                <p class="text-center mt-3 mb-0">حساب ندارید؟ <a href="/register/" class="text-gold">ثبت‌نام کنید</a></p>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

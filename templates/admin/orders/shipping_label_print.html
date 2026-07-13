@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl"><head><meta charset="UTF-8"><title>برچسب ارسال {{ order.order_number }}</title><style>body{font-family:tahoma;padding:30px;border:2px dashed #333;margin:30px}</style></head><body>
+<h2>برچسب ارسال</h2>
+<p><strong>شماره سفارش:</strong> {{ order.order_number }}</p>
+<p><strong>گیرنده:</strong> {{ order.receiver_name }}</p>
+<p><strong>تلفن:</strong> {{ order.receiver_phone }}</p>
+<p><strong>آدرس:</strong> {{ order.province }} - {{ order.city }} - {{ order.address }}</p>
+<p><strong>کد پستی:</strong> {{ order.postal_code }}</p>
+<script>window.print()</script>
+</body></html>

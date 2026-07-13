@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block title %}خانه | NEWMOON HOME{% endblock %}
+{% block content %}
+<section class="ultra-hero">
+    <div class="container">
+        <div class="ultra-hero-grid">
+            <div class="ultra-hero-content">
+                <span class="section-kicker">Ultra Luxury Living</span>
+                <h1>خانه را با زبان طراحی لوکس، گرم و ماندگار بازآفرینی کنید</h1>
+                <p>
+                    NEWMOON HOME تجربه‌ای ممتاز از مبلمان، چوب، جزئیات ظریف و شخصی‌سازی را
+                    در قالب فضایی آرام، باوقار و سطح‌بالا ارائه می‌دهد.
+                </p>
+                <div class="hero-actions-wrap">
+                    <a href="#featured-products" class="btn btn-brand">مشاهده کالکشن ممتاز</a>
+                    <a href="/about/" class="btn btn-brand-outline">داستان برند</a>
+                </div>
+            </div>
+            <div class="ultra-hero-panel">
+                <div class="ultra-showcase-card">
+                    <span class="floating-luxury-badge">Curated Signature Collection</span>
+                    <div class="ultra-showcase-visual"></div>
+                </div>
+                <div class="ultra-stats-grid">
+                    <div class="ultra-stat-box"><strong>+120</strong><span>محصول سفارشی</span></div>
+                    <div class="ultra-stat-box"><strong>Premium</strong><span>متریال ممتاز</span></div>
+                    <div class="ultra-stat-box"><strong>Bespoke</strong><span>شخصی‌سازی کامل</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="featured-products" class="section-space ultra-section-bg">
+    <div class="container">
+        <div class="section-head text-center">
+            <span class="section-kicker">Curated Pieces</span>
+            <h2>محصولات ویژه</h2>
+            <p>ترکیبی از حضور باشکوه، کیفیت ادراکی بالا و هویت بصری ممتاز برای خانه‌های خاص.</p>
+        </div>
+        <div class="ultra-product-grid">
+            {% for i in '1234' %}
+            <article class="ultra-product-card">
+                <div class="ultra-product-thumb">
+                    <span class="ultra-badge">Signature</span>
+                </div>
+                <div class="ultra-product-body">
+                    <h3><a href="/products/detail/">مبل لوکس آتریا</a></h3>
+                    <p>ترکیب فرم refined، چوب ممتاز و پارچه‌ای با حس آرامش و شکوه.</p>
+                    <div class="ultra-product-meta">
+                        <span class="price">48,000,000 ریال</span>
+                        <span class="ultra-icon-circle">♡</span>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-space">
+    <div class="container ultra-editorial-block">
+        <div class="ultra-editorial-visual"></div>
+        <div class="ultra-editorial-content">
+            <span class="section-kicker">Editorial Mood</span>
+            <h2>طراحی لوکس فقط در رنگ نیست؛ در سکوت، نسبت‌ها و ریتم فضا معنا پیدا می‌کند</h2>
+            <p>
+                این نسخه از سایت تلاش می‌کند NEWMOON HOME را نه فقط به‌عنوان یک فروشگاه،
+                بلکه به‌عنوان یک برند ممتاز با روایت طراحی مشخص نمایش دهد.
+            </p>
+            <a href="/products/" class="btn btn-brand">ورود به کالکشن</a>
+        </div>
+    </div>
+</section>
+
+<section class="section-space ultra-dark-banner-wrap">
+    <div class="container">
+        <div class="ultra-dark-banner">
+            <div>
+                <span class="section-kicker text-light-gold">Private Design Service</span>
+                <h2>برای سفارش‌های اختصاصی، با تیم طراحی NEWMOON HOME در ارتباط باشید</h2>
+                <p>از انتخاب متریال تا ابعاد و پارچه، همه‌چیز می‌تواند متناسب با فضای شما طراحی شود.</p>
+            </div>
+            <a href="/contact/" class="btn btn-brand-light">درخواست مشاوره</a>
+        </div>
+    </div>
+</section>
+
+<section class="section-space">
+    <div class="container">
+        <div class="section-head text-center">
+            <span class="section-kicker">Client Impression</span>
+            <h2>نظرات مشتریان</h2>
+        </div>
+        <div class="ultra-testimonials-grid">
+            <div class="ultra-quote-card">
+                <p>کیفیت ساخت و وقار طراحی دقیقاً همان چیزی بود که از یک برند لوکس انتظار داشتم.</p>
+                <strong>نسترن احمدی</strong>
+                <small>خریدار سرویس خواب الیت</small>
+            </div>
+            <div class="ultra-quote-card">
+                <p>شخصی‌سازی محصول باعث شد خروجی نهایی کاملاً مناسب فضای خانه‌ام باشد.</p>
+                <strong>مانی شریفی</strong>
+                <small>خریدار مبل آتریا</small>
+            </div>
+            <div class="ultra-quote-card">
+                <p>از نگاه برند، همه‌چیز حس ممتاز و حرفه‌ای داشت؛ از مشاوره تا تحویل.</p>
+                <strong>غزل موسوی</strong>
+                <small>خریدار میز مون</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-space section-soft">
+    <div class="container">
+        <div class="newsletter-box text-center ultra-newsletter-box">
+            <span class="section-kicker">Private List</span>
+            <h2>عضویت در خبرنامه اختصاصی</h2>
+            <p>برای دریافت کالکشن‌های جدید، پیشنهادهای ویژه و دعوت‌نامه‌های اختصاصی ایمیل خود را ثبت کنید.</p>
+            <form class="newsletter-form mx-auto">
+                <input type="email" class="form-control" placeholder="ایمیل شما">
+                <button type="submit" class="btn btn-brand">عضویت در لیست خصوصی</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

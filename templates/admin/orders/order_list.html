@@ -1,0 +1,23 @@
+{% extends 'admin/base_custom.html' %}
+{% block content %}
+<h1 class="mb-4">مدیریت سفارشات</h1>
+<form method="get" class="card admin-card mb-4"><div class="card-body">{{ filterset.form.as_p }}<button class="btn btn-primary">فیلتر</button></div></form>
+<div class="card admin-card"><div class="card-body table-responsive">
+<table class="table table-striped">
+    <thead><tr><th>شماره سفارش</th><th>کاربر</th><th>وضعیت</th><th>استان</th><th>مبلغ</th><th>فاکتور</th><th>برچسب ارسال</th></tr></thead>
+    <tbody>
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.order_number }}</td>
+        <td>{{ order.user }}</td>
+        <td>{{ order.get_status_display }}</td>
+        <td>{{ order.province }}</td>
+        <td>{{ order.total_amount }}</td>
+        <td><a class="btn btn-sm btn-outline-dark" href="{% url 'custom_admin:invoice_print' order.pk %}">چاپ</a></td>
+        <td><a class="btn btn-sm btn-outline-dark" href="{% url 'custom_admin:shipping_label_print' order.pk %}">چاپ</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div></div>
+{% endblock %}

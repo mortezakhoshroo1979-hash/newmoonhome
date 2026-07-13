@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview Product Detail - NEWMOON HOME</title>
+  <style>
+    :root{--g:#1a3c2a;--g2:#244b36;--gold:#c9a84c;--gold2:#e1ca88;--bg:#faf7f1;--text:#233128;--muted:#6d756d;--white:#fff;--b:rgba(201,168,76,.18);--s:0 14px 35px rgba(20,40,28,.08);--sg:0 16px 40px rgba(201,168,76,.18);--r1:26px;--r2:18px;--r3:14px;}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.9} a{text-decoration:none;color:inherit} img{display:block;max-width:100%}
+    .container{width:min(1180px,calc(100% - 32px));margin:auto}
+    .header{background:var(--g);position:sticky;top:0;z-index:99;box-shadow:0 10px 24px rgba(0,0,0,.08)}
+    .header-inner{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 0;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:14px}.logo{width:62px;height:62px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);background:#102418}.logo img{width:100%;height:100%;object-fit:cover}.brand h1{margin:0;color:var(--gold);font-size:21px}.brand p{margin:2px 0 0;color:rgba(255,255,255,.72);font-size:12px}.nav{display:flex;gap:12px;flex-wrap:wrap}.nav a{color:#f4f0e8;padding:8px 10px;border-radius:999px}.nav a:hover{background:rgba(201,168,76,.08);color:var(--gold)}
+    .hero{padding:46px 0;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff}.hero .crumb{color:#dbc47f;font-size:13px}.hero h2{margin:8px 0 0;font-size:34px}
+    .section{padding:54px 0}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+    .card{background:#fff;border:1px solid var(--b);border-radius:var(--r1);box-shadow:var(--s)}
+    .gallery{padding:18px}.main-shot{height:460px;border-radius:22px;background:linear-gradient(135deg,#ece4d5,#d9d0c2);position:relative;overflow:hidden}.main-shot:before{content:"NEWMOON HOME";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(26,60,42,.3);font-weight:bold;font-size:28px}.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}.thumb{height:92px;border-radius:14px;background:linear-gradient(135deg,#efe7d9,#d9d1c5);border:1px solid var(--b)}
+    .info{padding:28px}.kicker{color:var(--gold);font-size:13px;letter-spacing:2px}.title{font-size:34px;color:var(--g);margin:8px 0 14px}.meta{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:14px}.price-box{margin:22px 0}.price{font-size:30px;color:var(--g);font-weight:bold}.old{color:#9a9a9a;text-decoration:line-through;margin-right:12px}.desc{color:var(--muted)}
+    .custom{background:#fbf7ef;border:1px solid var(--b);border-radius:20px;padding:20px;margin-top:24px}.custom h3{margin-top:0;color:var(--g)}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.select,.pillset button,.qty button,.qty input{font-family:inherit}.select,.qty input{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--b);background:#fff}.pillset{display:flex;gap:10px;flex-wrap:wrap}.pillset button{padding:10px 14px;border-radius:999px;border:1px solid var(--b);background:#fff;color:var(--g)}.pillset button.active{background:var(--g);color:var(--gold)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}.qty{display:flex;align-items:center;border:1px solid var(--b);border-radius:999px;overflow:hidden;height:50px}.qty button,.qty input{border:0;background:transparent;width:52px;text-align:center}.btn{padding:13px 22px;border-radius:999px;font-weight:bold;display:inline-flex;align-items:center;justify-content:center}.btn1{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1d1d1d;box-shadow:var(--sg)}.btn2{border:1px solid var(--gold);color:var(--gold);background:transparent}
+    .tabs{margin-top:34px}.tabbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.tab{padding:10px 16px;border-radius:999px;background:#fff;border:1px solid var(--b);color:var(--g)}.tab.active{background:var(--g);color:var(--gold)}.tabpane{padding:24px}
+    .head{text-align:center;margin-bottom:26px}.head h3{margin:0;color:var(--g);font-size:31px}.head p{margin:8px auto 0;max-width:700px;color:var(--muted)}
+    .products{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}.p{background:#fff;border:1px solid var(--b);border-radius:18px;overflow:hidden;box-shadow:var(--s)}.ph{height:220px;background:linear-gradient(135deg,#e8e0d1,#d7cfc1);position:relative}.ph:before{content:"Preview";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(26,60,42,.3);font-weight:bold}.pb{padding:18px}.pb h4{margin:0 0 8px;color:var(--g)}.pb p{margin:0 0 12px;color:var(--muted);font-size:14px}
+    .footer{margin-top:70px;background:#10251a;color:rgba(255,255,255,.8);padding:28px 0;text-align:center}
+    @media(max-width:980px){.grid,.row,.products{grid-template-columns:1fr 1fr}} @media(max-width:720px){.grid,.row,.products,.thumbs{grid-template-columns:1fr}.title{font-size:28px}.hero h2{font-size:28px}}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand"><div class="logo"><img src="static/assets/logo.png" alt="logo"></div><div><h1>NEWMOON HOME</h1><p>Luxury Product Preview</p></div></div>
+      <nav class="nav"><a href="preview_site.html">خانه</a><a href="preview_product_list.html">محصولات</a><a href="preview_cart.html">سبد</a><a href="preview_profile.html">پروفایل</a></nav>
+    </div>
+  </header>
+  <section class="hero"><div class="container"><div class="crumb">خانه / محصولات / مبل لوکس آتریا</div><h2>جزئیات محصول</h2></div></section>
+  <section class="section"><div class="container"><div class="grid">
+    <div class="card gallery"><div class="main-shot"></div><div class="thumbs"><div class="thumb"></div><div class="thumb"></div><div class="thumb"></div><div class="thumb"></div></div></div>
+    <div class="card info"><span class="kicker">Luxury Collection</span><div class="title">مبل لوکس مدل آتریا</div><div class="meta"><span>امتیاز 4.8 از 5</span><span>•</span><span>موجود در انبار</span><span>•</span><span>ارسال ویژه</span></div><div class="price-box"><span class="price">48,000,000 ریال</span><span class="old">52,000,000 ریال</span></div><p class="desc">این محصول برای نمایش premium detail page با چیدمان لوکس‌تر، فاصله‌گذاری حرفه‌ای‌تر و حس برند قوی‌تر طراحی شده است.</p>
+      <div class="custom"><h3>شخصی‌سازی</h3><div class="row"><div><label>سایز</label><select class="select"><option>استاندارد</option><option>بزرگ</option><option>سفارشی</option></select></div><div><label>پارچه</label><select class="select"><option>استاندارد</option><option>مخمل</option><option>لوکس وارداتی</option></select></div></div><div style="margin-top:14px"><label>رنگ</label><div class="pillset"><button class="active">سبز تیره</button><button>بژ طلایی</button><button>گردویی</button></div></div></div>
+      <div class="actions"><div class="qty"><button>-</button><input value="1"><button>+</button></div><a class="btn btn1" href="preview_cart.html">افزودن به سبد خرید</a><a class="btn btn2" href="#">علاقه‌مندی</a></div>
+    </div>
+  </div>
+  <div class="tabs"><div class="tabbar"><span class="tab active">توضیحات</span><span class="tab">مشخصات فنی</span><span class="tab">نظرات</span></div><div class="card tabpane">این بخش نشان می‌دهد که صفحه محصول در نسخه نهایی می‌تواند بسیار غنی‌تر از preview ساده باشد. در اینجا ساختار و حس لوکس طراحی تقویت شده است.</div></div>
+  </div></section>
+  <section class="section"><div class="container"><div class="head"><h3>محصولات مرتبط</h3><p>کارت‌های غنی‌تر برای ایجاد حس premium و فروش بهتر</p></div><div class="products"><div class="p"><div class="ph"></div><div class="pb"><h4>کنسول نوا</h4><p>فرم اصیل و مدرن</p><strong>19,000,000 ریال</strong></div></div><div class="p"><div class="ph"></div><div class="pb"><h4>میز مون</h4><p>مینیمال و شیک</p><strong>22,500,000 ریال</strong></div></div><div class="p"><div class="ph"></div><div class="pb"><h4>سرویس خواب الیت</h4><p>لوکس و آرامش‌بخش</p><strong>76,000,000 ریال</strong></div></div><div class="p"><div class="ph"></div><div class="pb"><h4>میز کنسول آرتین</h4><p>چوب ممتاز و دقیق</p><strong>31,500,000 ریال</strong></div></div></div></div></section>
+  <footer class="footer">NEWMOON HOME - Product Detail Preview</footer>
+</body>
+</html>

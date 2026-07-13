@@ -1,0 +1,9 @@
+{% extends 'admin/base_custom.html' %}
+{% block content %}
+<h1 class="mb-4">داشبورد تخفیف‌ها و باشگاه مشتریان</h1>
+<div class="row g-3">
+<div class="col-md-6"><div class="card admin-card"><div class="card-header">آخرین کوپن‌ها</div><div class="card-body"><ul>{% for coupon in coupons %}<li>{{ coupon.code }} - {{ coupon.value }} - {{ coupon.used_count }}/{{ coupon.max_uses }}</li>{% endfor %}</ul></div></div></div>
+<div class="col-md-6"><div class="card admin-card"><div class="card-header">سطوح مشتریان</div><div class="card-body"><ul>{% for rank in ranks %}<li>{{ rank.name }} - {{ rank.discount_percent }}٪</li>{% endfor %}</ul></div></div></div>
+</div>
+<div class="card admin-card mt-4"><div class="card-header">گزارش استفاده از کوپن‌ها</div><div class="card-body table-responsive"><table class="table table-striped"><thead><tr><th>کد</th><th>تعداد استفاده</th><th>مجموع تخفیف</th></tr></thead><tbody>{% for row in coupon_usage_stats %}<tr><td>{{ row.code }}</td><td>{{ row.uses }}</td><td>{{ row.total_discount }}</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

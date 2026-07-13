@@ -1,0 +1,17 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="container py-5 text-center" dir="rtl">
+    <div class="card border-gold p-5 bg-dark text-white mx-auto shadow-lg" style="max-width: 600px;">
+        <div style="font-size: 4rem;">✅</div>
+        <h2 class="text-gold fw-bold mt-3">سفارش شما با موفقیت ثبت شد</h2>
+        <p class="opacity-75 mt-3">از حسن انتخاب شما سپاسگزاریم. رسید خرید شما برای واحد فروش نیومون هوم ارسال شد.</p>
+        <hr class="border-secondary my-4">
+        <div class="text-start mb-4">
+            <p class="small mb-1">کد پیگیری سیستمی: <b>#{{ order_id }}</b></p>
+            <p class="small mb-1">نام خریدار: <b>{{ name }}</b></p>
+            <p class="small mb-1">مبلغ کل فاکتور: <b class="text-gold">{{ total }} ریال</b></p>
+        </div>
+        <a href="/" class="btn btn-luxury px-5">بازگشت به صفحه اصلی</a>
+    </div>
+</div>
+{% endblock %}

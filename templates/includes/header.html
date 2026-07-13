@@ -1,0 +1,152 @@
+{% load static %}
+<header class="site-header site-header--final">
+    <div class="header-topline">
+        <div class="container">
+            <div class="header-topline-inner d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="header-topline-right d-flex align-items-center flex-wrap gap-3 gap-lg-4">
+                    <span class="topline-item">
+                        <span class="topline-dot"></span>
+                        ارسال و نصب برای سفارش‌های ویژه در تهران و شهرهای منتخب
+                    </span>
+                    <a class="topline-item topline-link" href="tel:+982100000000">
+                        <span class="topline-dot"></span>
+                        021-00000000
+                    </a>
+                    <a class="topline-item topline-link" href="mailto:info@newmoonhome.ir">
+                        <span class="topline-dot"></span>
+                        info@newmoonhome.ir
+                    </a>
+                </div>
+                <div class="header-topline-left d-flex align-items-center gap-2 gap-md-3">
+                    <a href="#" class="topline-social" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="topline-social" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#" class="topline-social" aria-label="Whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <span class="topline-note d-none d-xl-inline-flex">NEWMOON HOME — Curated Luxury Living</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-header">
+        <div class="container">
+            <nav class="navbar navbar-expand-xl luxury-navbar luxury-navbar--final py-3 py-xl-4">
+                <a class="navbar-brand brand-logo brand-logo--final order-xl-3 ms-xl-0 me-xl-4" href="/">
+                    <span class="brand-logo-image-wrap brand-logo-image-wrap--final">
+                        <img src="{% static 'assets/logo.png' %}" alt="NEWMOON HOME" class="brand-image" loading="eager">
+                    </span>
+                    <span class="brand-text-wrap">
+                        <span class="brand-overline">EST. DESIGN HOUSE</span>
+                        <span class="brand-title">NEWMOON HOME</span>
+                        <span class="brand-subtitle">Luxury Furniture · Woodcraft · Bespoke Interiors</span>
+                    </span>
+                </a>
+
+                <button class="navbar-toggler custom-toggler order-xl-1" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="باز کردن منو">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse order-xl-2" id="mainNavbar">
+                    <ul class="navbar-nav navbar-nav--final mx-auto align-items-xl-center gap-xl-1">
+                        <li class="nav-item"><a class="nav-link" href="/">خانه</a></li>
+
+                        <li class="nav-item dropdown mega-dropdown position-static">
+                            <a class="nav-link dropdown-toggle" href="#" id="megaMenuProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">محصولات</a>
+                            <div class="dropdown-menu mega-menu mega-menu--final shadow-lg border-0 p-4 p-xl-5" aria-labelledby="megaMenuProducts">
+                                <div class="row g-4 g-xl-5 align-items-stretch">
+                                    <div class="col-xl-8">
+                                        <div class="row g-4">
+                                            <div class="col-md-4">
+                                                <h6 class="mega-title">مبلمان نشیمن</h6>
+                                                <a href="#">مبل راحتی</a>
+                                                <a href="#">مبل کلاسیک</a>
+                                                <a href="#">مبل ال و ماژولار</a>
+                                                <a href="#">نیم‌ست و تک‌نفره</a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h6 class="mega-title">اتاق خواب</h6>
+                                                <a href="#">سرویس خواب</a>
+                                                <a href="#">پاتختی و دراور</a>
+                                                <a href="#">کمد چوبی</a>
+                                                <a href="#">تخت سفارشی</a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h6 class="mega-title">میز و دکور</h6>
+                                                <a href="#">میز ناهارخوری</a>
+                                                <a href="#">میز جلو مبلی</a>
+                                                <a href="#">کنسول و بوفه</a>
+                                                <a href="#">آینه و اکسسوری</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <div class="mega-banner mega-banner--final h-100 d-flex flex-column justify-content-between">
+                                            <div>
+                                                <span class="mini-badge">کالکشن امضا</span>
+                                                <h6>طراحی اختصاصی برای فضاهای خاص</h6>
+                                                <p>ترکیب چوب ممتاز، جزئیات دست‌ساز و شخصی‌سازی کامل برای خانه‌هایی با هویت منحصربه‌فرد.</p>
+                                            </div>
+                                            <div class="mega-feature-list">
+                                                <span>متریال ممتاز</span>
+                                                <span>طراحی سفارشی</span>
+                                                <span>تحویل حرفه‌ای</span>
+                                            </div>
+                                            <a href="#" class="btn btn-brand-outline btn-sm align-self-start">مشاهده کالکشن</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-link" href="/about/">درباره ما</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog/">ژورنال</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact/">تماس با ما</a></li>
+                    </ul>
+
+                    <div class="header-search-wrapper header-search-wrapper--final my-3 my-xl-0" x-data="searchSuggest()">
+                        <div class="search-box search-box--final">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="جستجو در مبلمان، سرویس خواب، میز، کنسول و ..."
+                                x-model="query"
+                                @input="updateSuggestions()"
+                                @focus="open = true"
+                                @click.outside="open = false"
+                            >
+                            <button type="button" class="search-btn" aria-label="جستجو">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+
+                            <div class="suggestions-panel" x-show="open && filtered.length" x-transition>
+                                <template x-for="item in filtered" :key="item.name">
+                                    <a :href="item.url" class="suggestion-item d-flex align-items-center justify-content-between">
+                                        <span x-text="item.name"></span>
+                                        <i class="fa-solid fa-arrow-up-left-from-circle"></i>
+                                    </a>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-tools header-tools--final d-flex align-items-center gap-2 gap-md-3 order-xl-1 me-auto me-xl-0">
+                    <a href="/login/" class="tool-btn" aria-label="ورود و ثبت نام">
+                        <i class="fa-regular fa-user"></i>
+                    </a>
+                    <a href="/wishlist/" class="tool-btn" aria-label="علاقه‌مندی‌ها">
+                        <i class="fa-regular fa-heart"></i>
+                        <span class="tool-badge">2</span>
+                    </a>
+                    <a href="/cart/" class="tool-btn cart-tool cart-tool--final" aria-label="سبد خرید">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="tool-badge">{{ header_cart_count|default:0 }}</span>
+                        <span class="cart-tool-text d-none d-md-inline-flex flex-column align-items-start">
+                            <strong>سبد خرید</strong>
+                            <span class="cart-meta">{{ header_cart_total|default:0 }} ریال</span>
+                        </span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
