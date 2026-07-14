@@ -6,10 +6,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+# 0. تغییر خودکار مسیر کاری به پوشه محل قرارگیری همین فایل (start.py)
 BASE_DIR = Path(__file__).resolve().parent
+os.chdir(BASE_DIR)
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 
 print("=" * 55)
-print("🚀 در حال آماده‌سازی و راه‌اندازی سرور لوکس NEWMOON HOME...")
+print(f"🚀 در حال آماده‌سازی و راه‌اندازی سرور لوکس NEWMOON HOME در مسیر {BASE_DIR}...")
 print("=" * 55)
 
 # 1. بررسی و نصب خودکار پکیج‌های ضروری
@@ -19,7 +23,8 @@ try:
     import import_export
 except ImportError:
     print("⏳ در حال نصب خودکار پکیج‌های پروژه (لطفاً چند لحظه صبر کنید)...")
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+    req_file = BASE_DIR / "requirements.txt"
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", str(req_file)], cwd=str(BASE_DIR))
     import django
 
 # 2. تنظیم کانفیگ جنگو
