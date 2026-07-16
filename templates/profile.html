@@ -12,44 +12,151 @@
     <div class="container ultra-profile-layout">
         <aside class="profile-sidebar sticky-card ultra-profile-sidebar">
             <div class="profile-card-head text-center">
-                <div class="profile-avatar">ن</div>
-                <h5>نسترن احمدی</h5>
-                <p>کد معرف: NMH-REF-204</p>
+                <div class="profile-avatar">{{ request.user.username|make_list|first|upper }}</div>
+                <h5>{{ request.user.get_full_name|default:request.user.username }}</h5>
+                <p class="text-muted small mb-0">{{ request.user.email|default:request.user.phone|default:'' }}</p>
+                {% if referral_code %}
+                <span class="badge bg-light text-dark border mt-2">کد معرف: {{ referral_code.code }}</span>
+                {% endif %}
             </div>
             <ul class="profile-menu list-unstyled">
                 <li><a class="active" href="#">داشبورد</a></li>
-                <li><a href="#">سفارشات</a></li>
-                <li><a href="#">آدرس‌ها</a></li>
-                <li><a href="#">علاقه‌مندی‌ها</a></li>
-                <li><a href="#">تنظیمات حساب</a></li>
+                <li><a href="{% url 'orders:custom_request' %}">سفارش و استعلام اختصاصی</a></li>
+                <li><a href="{% url 'accounts:logout' %}" class="text-danger">خروج از حساب</a></li>
             </ul>
         </aside>
 
         <div>
             <div class="ultra-stats-row">
-                <div class="mini-stat-card"><span>امتیاز</span><strong>2450</strong></div>
-                <div class="mini-stat-card"><span>رتبه</span><strong>طلایی</strong></div>
-                <div class="mini-stat-card"><span>تعداد سفارش</span><strong>12</strong></div>
+                <div class="mini-stat-card"><span>امتیاز وفاداری</span><strong>{{ getattr(profile, 'score', 0)|default:'0' }}</strong></div>
+                <div class="mini-stat-card"><span>رتبه مشتری</span><strong>{{ getattr(profile.rank, 'name', 'عادی')|default:'عادی' }}</strong></div>
+                <div class="mini-stat-card"><span>تعداد سفارش</span><strong>{{ orders_count|default:'0' }}</strong></div>
             </div>
 
-            <div class="content-panel ultra-content-panel mt-4">
-                <h4>تاریخچه سفارشات</h4>
+            <!-- بخش سفارش‌های سفارشی و تایم‌لاین مراحل ساخت -->
+            <div class="content-panel ultra-content-panel mt-4 p-4 shadow-sm border-0 bg-white" style="border-radius: 16px;">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                    <h4 class="mb-0 text-brand-green"><i class="fa-solid fa-wand-magic-sparkles me-2 text-brand-gold"></i> سفارش‌های اختصاصی و تایم‌لاین ساخت</h4>
+                    <a href="{% url 'orders:custom_request' %}" class="btn btn-brand btn-sm px-3 py-2 fw-bold">+ ثبت استعلام جدید</a>
+                </div>
+
+                {% for c_order in custom_orders %}
+                <div class="card mb-4 border shadow-sm p-3 p-md-4" style="border-radius: 12px; background: #fdfcf9;">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                        <div>
+                            <span class="badge bg-dark text-white me-2">{{ c_order.request_number }}</span>
+                            <strong class="fs-6">{{ c_order.get_wood_type_display }} / {{ c_order.get_fabric_type_display }}</strong>
+                            <small class="text-muted d-block mt-1">ابعاد: {{ c_order.length_cm|default:'-' }} × {{ c_order.width_cm|default:'-' }} × {{ c_order.height_cm|default:'-' }} سانتی‌متر</small>
+                        </div>
+                        <div class="text-md-end mt-2 mt-md-0">
+                            <span class="badge {% if c_order.status == 'ready' %}bg-success{% elif c_order.status == 'canceled' %}bg-danger{% else %}bg-warning text-dark{% endif %} px-3 py-2 fs-6">
+                                {{ c_order.get_status_display }}
+                            </span>
+                            {% if c_order.quoted_price %}
+                            <div class="fw-bold text-brand-green mt-1">برآورد: {{ c_order.quoted_price }} ریال</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- تایم‌لاین بصری پیشرفت -->
+                    <div class="progress mt-3 mb-2" style="height: 10px; border-radius: 5px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: {{ c_order.progress_percentage }}%;" aria-valuenow="{{ c_order.progress_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted small px-1" style="font-size: 0.75rem;">
+                        <span>بررسی و برآورد</span>
+                        <span>برش چوب</span>
+                        <span>نجاری و کلاف</span>
+                        <span>رنگ‌آمیزی</span>
+                        <span>رویه‌کوبی</span>
+                        <span>کنترل و تحویل</span>
+                    </div>
+
+                    {% if c_order.admin_feedback %}
+                    <div class="alert alert-info py-2 px-3 mt-3 mb-0 small">
+                        <strong>پاسخ تیم مهندسی:</strong> {{ c_order.admin_feedback }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="text-center py-4 text-muted">
+                    <i class="fa-solid fa-list-check fs-2 mb-2 d-block opacity-50"></i>
+                    هنوز سفارش یا استعلام اختصاصی ثبت نکرده‌اید.
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="content-panel ultra-content-panel mt-4 p-4 shadow-sm border-0 bg-white" style="border-radius: 16px;">
+                <h4 class="mb-3 text-brand-green">تاریخچه سفارشات فروشگاه</h4>
                 <div class="table-responsive">
-                    <table class="table luxury-table">
-                        <thead><tr><th>شماره سفارش</th><th>تاریخ</th><th>وضعیت</th><th>مبلغ</th></tr></thead>
+                    <table class="table luxury-table align-middle">
+                        <thead class="table-light"><tr><th>شماره سفارش</th><th>تاریخ</th><th>وضعیت</th><th>مبلغ (ریال)</th></tr></thead>
                         <tbody>
-                            <tr><td>NMH-20260601</td><td>1405/04/01</td><td><span class="status-chip success">تحویل</span></td><td>48,000,000</td></tr>
-                            <tr><td>NMH-20260520</td><td>1405/03/20</td><td><span class="status-chip warning">آماده‌سازی</span></td><td>26,000,000</td></tr>
+                            {% for order in orders %}
+                            <tr>
+                                <td class="fw-bold">{{ order.order_number }}</td>
+                                <td>{{ order.created_at|date:"Y/m/d" }}</td>
+                                <td><span class="status-chip {% if order.status == 'delivered' %}success{% elif order.status == 'canceled' %}danger{% else %}warning{% endif %} px-3 py-1">{{ order.get_status_display }}</span></td>
+                                <td class="fw-bold text-brand-green">{{ order.total_amount }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="4" class="text-center py-4 text-muted">هیچ سفارشی یافت نشد.</td></tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="content-panel ultra-content-panel mt-4">
-                <h4>علاقه‌مندی‌ها</h4>
+            <div class="content-panel ultra-content-panel mt-4 p-4 shadow-sm border-0 bg-white" style="border-radius: 16px;">
+                <h4 class="mb-3 text-brand-green">آدرس‌های ذخیره‌شده شما</h4>
                 <div class="row g-3">
-                    <div class="col-md-6"><div class="compact-card horizontal ultra-horizontal-card"><div class="ultra-mini-thumb"></div><div class="compact-card-body"><h4>مبل آتریا</h4><span>48,000,000 ریال</span></div></div></div>
-                    <div class="col-md-6"><div class="compact-card horizontal ultra-horizontal-card"><div class="ultra-mini-thumb"></div><div class="compact-card-body"><h4>کنسول نوا</h4><span>19,000,000 ریال</span></div></div></div>
+                    {% if profile and profile.addresses %}
+                        {% for addr in profile.addresses %}
+                        <div class="col-md-6">
+                            <div class="card p-3 h-100 border shadow-sm" style="border-radius: 12px; background: #fdfcf9;">
+                                <strong class="d-block text-brand-green mb-1">{{ addr.receiver_name }} ({{ addr.receiver_phone }})</strong>
+                                <p class="text-muted small mb-0">{{ addr.province }}، {{ addr.city }} - {{ addr.address }} {% if addr.postal_code %}[کد پستی: {{ addr.postal_code }}]{% endif %}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                    <div class="col-12 text-muted small">آدرسی در حساب شما ذخیره نشده است (با اولین ثبت سفارش، آدرس شما به طور خودکار ذخیره می‌شود).</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- بخش کلیدهای API همکاران، طراحان داخلی و اپلیکیشن موبایل -->
+            <div class="content-panel ultra-content-panel mt-4 p-4 shadow-sm border-0 bg-white" style="border-radius: 16px;">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                    <div>
+                        <h4 class="mb-1 text-brand-green"><i class="fa-solid fa-key me-2 text-brand-gold"></i> کلیدهای API (B2B & Mobile App Integration)</h4>
+                        <small class="text-muted">مخصوص طراحان داخلی، معماران و اتصال اپلیکیشن موبایل برای استعلام آنی موجودی و ثبت سفارش از طریق REST API</small>
+                    </div>
+                    <form method="post" action="{% url 'accounts:create_api_key' %}" class="d-flex gap-2">
+                        {% csrf_token %}
+                        <input type="text" name="name" class="form-control form-control-sm" placeholder="عنوان کلید (مثلاً اپ اندروید)" style="max-width: 180px;">
+                        <button type="submit" class="btn btn-dark btn-sm px-3 py-2 fw-bold text-nowrap">+ ساخت API Key جدید</button>
+                    </form>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table luxury-table align-middle">
+                        <thead class="table-light"><tr><th>عنوان کلید</th><th>کلید محرمانه (Key)</th><th>وضعیت</th><th>تاریخ ساخت</th></tr></thead>
+                        <tbody>
+                            {% for k in api_keys %}
+                            <tr>
+                                <td class="fw-bold">{{ k.name }}</td>
+                                <td>
+                                    <code class="bg-light p-2 border rounded d-inline-block text-dark font-monospace">{{ k.key }}</code>
+                                    <button class="btn btn-sm btn-outline-secondary ms-1" onclick="navigator.clipboard.writeText('{{ k.key }}'); alert('کلید کپی شد!');"><i class="fa-regular fa-copy"></i></button>
+                                </td>
+                                <td><span class="badge {% if k.is_active %}bg-success{% else %}bg-secondary{% endif %} px-2 py-1">{% if k.is_active %}فعال{% else %}غیرفعال{% endif %}</span></td>
+                                <td class="text-muted small">{{ k.created_at|date:"Y/m/d H:i" }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="4" class="text-center py-4 text-muted small">هنوز کلید API تولید نکرده‌اید. با دکمه بالا یک کلید جدید بسازید.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

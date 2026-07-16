@@ -4,6 +4,7 @@ import uuid
 from decimal import Decimal
 
 from django.conf import settings
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.db.models import Sum
 from django.urls import reverse
@@ -133,3 +134,107 @@ class Invoice(TimeStampedModel):
         if not self.amount and self.order_id:
             self.amount = self.order.total_amount
         super().save(*args, **kwargs)
+
+
+class CustomOrderRequest(TimeStampedModel):
+    STATUS_PENDING_REVIEW = 'pending_review'
+    STATUS_QUOTED = 'quoted'
+    STATUS_ACCEPTED = 'accepted'
+    STATUS_WOOD_CUTTING = 'wood_cutting'
+    STATUS_CARPENTRY = 'carpentry'
+    STATUS_PAINTING = 'painting'
+    STATUS_UPHOLSTERY = 'upholstery'
+    STATUS_QUALITY_CONTROL = 'quality_control'
+    STATUS_READY = 'ready'
+    STATUS_CANCELED = 'canceled'
+
+    STATUS_CHOICES = [
+        (STATUS_PENDING_REVIEW, 'در انتظار بررسی تیم مهندسی'),
+        (STATUS_QUOTED, 'برآورد قیمت و اعلام به مشتری'),
+        (STATUS_ACCEPTED, 'تایید مشتری و پرداخت بیعانه'),
+        (STATUS_WOOD_CUTTING, 'مرحله ۱: انتخاب و برش چوب'),
+        (STATUS_CARPENTRY, 'مرحله ۲: نجاری و کلاف‌بندی'),
+        (STATUS_PAINTING, 'مرحله ۳: رنگ‌آمیزی و پرداخت سطح'),
+        (STATUS_UPHOLSTERY, 'مرحله ۴: رویه‌کوبی و خیاطی پارچه'),
+        (STATUS_QUALITY_CONTROL, 'مرحله ۵: کنترل کیفیت نهایی'),
+        (STATUS_READY, 'آماده ارسال / تحویل'),
+        (STATUS_CANCELED, 'لغو شده'),
+    ]
+
+    WOOD_CHOICES = [
+        ('raash', 'چوب راش طبیعی درجه یک'),
+        ('gerdoo', 'چوب گردوی آمریکایی ممتاز'),
+        ('baloot', 'چوب بلوط اروپایی'),
+        ('roosi', 'چوب روسی ساب‌خورده'),
+        ('other', 'سایر موارد (طبق توضیحات)'),
+    ]
+
+    FINISH_CHOICES = [
+        ('polyurethane', 'رنگ پلی‌اورتان مات/براق'),
+        ('herbal_oil', 'روغن گیاهی طبیعی ضدآب'),
+        ('patina', 'پاتینه و کهنه‌کاری دست‌ساز'),
+        ('raw', 'بدون پوشش (چوب خام)'),
+    ]
+
+    FABRIC_CHOICES = [
+        ('velvet', 'مخمل وارداتی درجه یک'),
+        ('leather', 'چرم طبیعی/صنعتی ممتاز'),
+        ('linen', 'کتان / گونی‌بافت لوکس'),
+        ('boucle', 'بوکله بافت‌دار اروپایی'),
+        ('none', 'بدون پارچه (تمام چوب)'),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='custom_orders', verbose_name='کاربر')
+    request_number = models.CharField(max_length=50, unique=True, blank=True, verbose_name='شماره استعلام')
+    receiver_name = models.CharField(max_length=255, verbose_name='نام سفارش‌دهنده')
+    receiver_phone = models.CharField(max_length=20, verbose_name='شماره تماس')
+    inspiration_image = models.ImageField(
+        upload_to='orders/custom_requests/',
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp', 'pdf'])],
+        verbose_name='تصویر نمونه/الهام‌بخش'
+    )
+    length_cm = models.PositiveIntegerField(null=True, blank=True, verbose_name='طول (سانتی‌متر)')
+    width_cm = models.PositiveIntegerField(null=True, blank=True, verbose_name='عرض (سانتی‌متر)')
+    height_cm = models.PositiveIntegerField(null=True, blank=True, verbose_name='ارتفاع (سانتی‌متر)')
+    wood_type = models.CharField(max_length=50, choices=WOOD_CHOICES, default='raash', verbose_name='نوع چوب')
+    finish_type = models.CharField(max_length=50, choices=FINISH_CHOICES, default='polyurethane', verbose_name='نوع رنگ/پوشش')
+    fabric_type = models.CharField(max_length=50, choices=FABRIC_CHOICES, default='velvet', verbose_name='جنس پارچه')
+    fabric_color_code = models.CharField(max_length=100, blank=True, verbose_name='کد/رنگ پارچه')
+    customer_notes = models.TextField(blank=True, verbose_name='توضیحات تکمیلی مشتری')
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES, default=STATUS_PENDING_REVIEW, verbose_name='وضعیت ساخت')
+    quoted_price = models.DecimalField(max_digits=12, decimal_places=0, null=True, blank=True, verbose_name='مبلغ برآوردی (ریال)')
+    prepayment_amount = models.DecimalField(max_digits=12, decimal_places=0, null=True, blank=True, verbose_name='مبلغ بیعانه (ریال)')
+    admin_feedback = models.TextField(blank=True, verbose_name='پاسخ و برآورد مهندسی')
+
+    class Meta:
+        verbose_name = 'استعلام و سفارش اختصاصی'
+        verbose_name_plural = 'استعلام‌ها و سفارش‌های اختصاصی'
+        ordering = ['-created_at']
+        indexes = [models.Index(fields=['request_number', 'status'])]
+
+    def __str__(self):
+        return f"{self.request_number} - {self.receiver_name}"
+
+    def save(self, *args, **kwargs):
+        if not self.request_number:
+            self.request_number = f"REQ-{timezone.now().strftime('%Y%m%d%H%M%S')}"
+        super().save(*args, **kwargs)
+
+    @property
+    def progress_percentage(self):
+        steps = {
+            self.STATUS_PENDING_REVIEW: 10,
+            self.STATUS_QUOTED: 20,
+            self.STATUS_ACCEPTED: 30,
+            self.STATUS_WOOD_CUTTING: 45,
+            self.STATUS_CARPENTRY: 60,
+            self.STATUS_PAINTING: 75,
+            self.STATUS_UPHOLSTERY: 85,
+            self.STATUS_QUALITY_CONTROL: 95,
+            self.STATUS_READY: 100,
+            self.STATUS_CANCELED: 0,
+        }
+        return steps.get(self.status, 10)

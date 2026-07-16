@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.views.generic import FormView, TemplateView
 
 from .forms_auth import LoginForm, OTPVerifyForm, PasswordResetRequestForm, RegisterForm
-from .models import Profile, ReferralCode, User
+from .models import Profile, ReferralCode, User, UserAPIKey
 
 
 class RegisterView(FormView):
@@ -24,6 +24,12 @@ class RegisterView(FormView):
         ReferralCode.objects.get_or_create(user=user, defaults={'code': f'NMH-{random.randint(100000, 999999)}'})
         self.request.session['otp_code'] = '123456'
         self.request.session['pending_user_id'] = str(user.id)
+        try:
+            from core.services import SMSService
+            if user.phone:
+                SMSService().send_otp(user.phone, '123456')
+        except Exception:
+            pass
         if user.email:
             send_mail('خوش آمدید به NEWMOON HOME', 'ثبت‌نام شما با موفقیت انجام شد.', None, [user.email])
         messages.success(self.request, 'ثبت‌نام انجام شد. کد تایید برای شما ارسال شد.')
@@ -72,3 +78,33 @@ class PasswordResetRequestView(FormView):
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        orders = user.orders.all().order_by('-created_at')
+        custom_orders = user.custom_orders.all().order_by('-created_at')
+        api_keys = user.api_keys.all().order_by('-created_at')
+        profile = getattr(user, 'profile', None)
+        referral_code = getattr(user, 'referral_code', None)
+        total_spent = sum(o.total_amount for o in orders)
+
+        context.update({
+            'orders': orders,
+            'custom_orders': custom_orders,
+            'api_keys': api_keys,
+            'profile': profile,
+            'referral_code': referral_code,
+            'total_spent': total_spent,
+            'orders_count': orders.count(),
+            'custom_orders_count': custom_orders.count(),
+        })
+        return context
+
+
+class APIKeyGenerateView(LoginRequiredMixin, TemplateView):
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name', '').strip() or 'کلید دسترسی همکار / موبایل'
+        api_key = UserAPIKey.objects.create(user=request.user, name=name)
+        messages.success(request, f'کلید API جدید شما ساخته شد: {api_key.key} (لطفاً این کلید را در مکانی امن ذخیره کنید)')
+        return redirect('accounts:profile')

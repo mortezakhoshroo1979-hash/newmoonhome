@@ -58,19 +58,38 @@
                     </div>
                 </div>
 
-                <div class="ultra-product-grid">
-                    {% for i in '123456' %}
-                    <article class="ultra-product-card">
-                        <div class="ultra-product-thumb"><span class="ultra-badge">Curated</span></div>
-                        <div class="ultra-product-body">
-                            <h3><a href="/products/detail/">میز کنسول آرتین</a></h3>
-                            <p>چوب طبیعی، شخصیت بصری قوی و هماهنگی عالی با فضاهای معاصر.</p>
-                            <div class="ultra-product-meta">
-                                <span class="price">31,500,000 ریال</span>
-                                <a href="/products/detail/" class="btn btn-brand-outline btn-sm">مشاهده</a>
+                <div class="ultra-product-grid row g-4">
+                    {% for product in products %}
+                    <div class="col-md-4">
+                        <article class="ultra-product-card card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 14px;">
+                            <div class="ultra-product-thumb text-center p-3 position-relative" style="background: #fdfcf9; height: 220px; display: flex; align-items: center; justify-content: center;">
+                                {% if product.is_featured %}
+                                <span class="ultra-badge position-absolute top-0 start-0 m-3 badge bg-warning text-dark">ویژه</span>
+                                {% endif %}
+                                {% if product.images.first %}
+                                <a href="{{ product.get_absolute_url }}"><img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="img-fluid" style="max-height: 190px; object-fit: contain;"></a>
+                                {% else %}
+                                <a href="{{ product.get_absolute_url }}"><img src="/static/assets/logo.png" alt="{{ product.name }}" class="img-fluid" style="max-height: 130px; opacity: 0.7;"></a>
+                                {% endif %}
                             </div>
-                        </div>
-                    </article>
+                            <div class="ultra-product-body card-body d-flex flex-column justify-content-between p-4">
+                                <div>
+                                    <small class="text-brand-gold fw-bold d-block mb-1">{{ product.category.name }}</small>
+                                    <h3 class="fs-5 fw-bold mb-2"><a href="{{ product.get_absolute_url }}" class="text-decoration-none text-dark">{{ product.name }}</a></h3>
+                                    <p class="text-muted small mb-3">{{ product.description|striptags|truncatewords:12 }}</p>
+                                </div>
+                                <div class="ultra-product-meta d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                                    <span class="price fw-bold text-brand-green">{{ product.current_price }} ریال</span>
+                                    <a href="{{ product.get_absolute_url }}" class="btn btn-brand-outline btn-sm px-3 py-1">مشاهده و ۳بعدی</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center text-muted py-5">
+                        <i class="fa-solid fa-box-open fs-1 mb-3 d-block"></i>
+                        <h5>هیچ محصولی یافت نشد.</h5>
+                    </div>
                     {% endfor %}
                 </div>
 

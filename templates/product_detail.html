@@ -1,109 +1,216 @@
 {% extends 'base.html' %}
-{% block title %}جزئیات محصول | NEWMOON HOME{% endblock %}
+{% block title %}{{ product.name }} | جزئیات محصول NEWMOON HOME{% endblock %}
 {% block content %}
 <section class="page-hero-sm ultra-page-hero">
     <div class="container">
-        <span class="section-kicker text-light-gold">Signature Product</span>
-        <h1>جزئیات محصول ممتاز</h1>
-        <p>نمایش refined برای محصول با تأکید بر کیفیت، متریال و تجربه premium.</p>
+        <span class="section-kicker text-light-gold">Signature Product · 3D / AR Experience</span>
+        <h1>{{ product.name }}</h1>
+        <p>نمایش refined برای محصول با تأکید بر کیفیت، متریال طبیعی و قابلیت چرخش ۳۶۰ درجه و واقعیت افزوده.</p>
     </div>
 </section>
 
 <section class="section-space">
     <div class="container">
         <div class="ultra-detail-grid">
-            <div class="card ultra-gallery-card">
-                <div class="ultra-gallery-main"></div>
-                <div class="ultra-gallery-thumbs">
-                    <div class="ultra-thumb"></div>
-                    <div class="ultra-thumb"></div>
-                    <div class="ultra-thumb"></div>
-                    <div class="ultra-thumb"></div>
+            <div class="card ultra-gallery-card p-3 border-0 shadow-lg" style="background: rgba(26, 60, 42, 0.04); border-radius: 16px;">
+                <ul class="nav nav-pills mb-3 justify-content-center gap-2" id="galleryTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active fw-bold px-3 py-2" id="img-tab" data-bs-toggle="pill" data-bs-target="#img-pane" type="button" role="tab">
+                            <i class="fa-solid fa-images me-1"></i> گالری تصاویر
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link fw-bold px-3 py-2" id="rotate-tab" data-bs-toggle="pill" data-bs-target="#rotate-pane" type="button" role="tab">
+                            <i class="fa-solid fa-rotate me-1"></i> چرخش ۳۶۰ درجه
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link fw-bold px-3 py-2" id="ar-tab" data-bs-toggle="pill" data-bs-target="#ar-pane" type="button" role="tab">
+                            <i class="fa-solid fa-cube me-1"></i> مدل ۳بعدی و AR
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="galleryTabsContent">
+                    <!-- تب گالری تصاویر -->
+                    <div class="tab-pane fade show active text-center" id="img-pane" role="tabpanel">
+                        <div class="ultra-gallery-main mb-3" style="min-height: 380px; display: flex; align-items: center; justify-content: center; background: #fff; border-radius: 12px; overflow: hidden;">
+                            {% if product.images.first %}
+                            <img id="mainGalleryImg" src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="img-fluid" style="max-height: 380px; object-fit: contain;">
+                            {% else %}
+                            <img id="mainGalleryImg" src="/static/assets/logo.png" alt="{{ product.name }}" class="img-fluid" style="max-height: 250px; opacity: 0.8;">
+                            {% endif %}
+                        </div>
+                        <div class="ultra-gallery-thumbs d-flex justify-content-center gap-2 flex-wrap">
+                            {% for img in product.images.all %}
+                            <div class="ultra-thumb p-1 border" style="cursor: pointer; border-radius: 8px; background: #fff;" onclick="document.getElementById('mainGalleryImg').src='{{ img.image.url }}'">
+                                <img src="{{ img.image.url }}" width="65" height="65" style="object-fit: cover; border-radius: 6px;">
+                            </div>
+                            {% empty %}
+                            <div class="ultra-thumb p-1 border" style="border-radius: 8px; background: #fff;">
+                                <img src="/static/assets/logo.png" width="65" height="65" style="object-fit: contain;">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- تب چرخش ۳۶۰ درجه -->
+                    <div class="tab-pane fade text-center" id="rotate-pane" role="tabpanel">
+                        <div class="p-4" style="min-height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; border-radius: 12px;">
+                            <div id="rotateViewBox" style="width: 100%; max-width: 350px; cursor: ew-resize; position: relative;">
+                                {% if product.images.first %}
+                                <img id="rotateImg" src="{{ product.images.first.image.url }}" class="img-fluid" style="max-height: 320px; user-select: none;">
+                                {% else %}
+                                <img id="rotateImg" src="/static/assets/logo.png" class="img-fluid" style="max-height: 220px; user-select: none;">
+                                {% endif %}
+                            </div>
+                            <span class="badge bg-dark mt-3 px-3 py-2"><i class="fa-solid fa-arrows-left-right me-1"></i> برای چرخش محصول ماوس یا انگشت خود را روی تصویر بکشید</span>
+                        </div>
+                    </div>
+
+                    <!-- تب مدل سه‌بعدی و AR -->
+                    <div class="tab-pane fade text-center" id="ar-pane" role="tabpanel">
+                        <div style="min-height: 400px; background: #fff; border-radius: 12px; position: relative; overflow: hidden;">
+                            <model-viewer 
+                                src="{% if product.three_d_files.first %}{{ product.three_d_files.first.file.url }}{% else %}https://modelviewer.dev/shared-assets/models/Chair.glb{% endif %}" 
+                                alt="{{ product.name }} 3D Model"
+                                auto-rotate 
+                                camera-controls 
+                                ar 
+                                ar-modes="webxr scene-viewer quick-look" 
+                                shadow-intensity="1"
+                                style="width: 100%; height: 400px; background-color: #f8f9fa;">
+                                <button slot="ar-button" class="btn btn-brand position-absolute bottom-0 start-50 translate-middle-x mb-3 shadow">
+                                    <i class="fa-solid fa-camera me-2"></i> مشاهده در اتاق شما (AR)
+                                </button>
+                            </model-viewer>
+                        </div>
+                        <small class="text-muted d-block mt-2">مدل سه‌بعدی تعاملی با قابلیت چرخش با انگشت و مشاهده در واقعیت افزوده (دوربین موبایل)</small>
+                    </div>
                 </div>
             </div>
 
-            <div class="card ultra-detail-info">
-                <span class="section-kicker">Luxury Collection</span>
-                <h1 class="product-title-lg">مبل لوکس مدل آتریا</h1>
+            <div class="card ultra-detail-info border-0 shadow-lg p-4 p-xl-5" style="border-radius: 16px;">
+                <span class="section-kicker text-brand-gold">Luxury Collection · {{ product.brand.name|default:'NEWMOON' }}</span>
+                <h1 class="product-title-lg mb-2">{{ product.name }}</h1>
                 <div class="rating-stock d-flex flex-wrap align-items-center gap-3 mb-3">
-                    <div class="stars text-gold">★★★★★ <span class="text-muted">4.8</span></div>
-                    <span class="mini-stock success">موجود در انبار</span>
+                    <div class="stars text-gold">★★★★★ <span class="text-muted">4.9</span></div>
+                    <span class="mini-stock success">کد محصول: {{ product.sku }} | موجود و قابل سفارش</span>
                 </div>
                 <div class="price-box mb-4 ultra-price-box">
-                    <span class="current-price">48,000,000 ریال</span>
-                    <del class="old-price">52,000,000 ریال</del>
+                    <span class="current-price fw-bold text-brand-green" style="font-size: 1.8rem;">{{ product.current_price }} ریال</span>
+                    {% if product.special_price %}
+                    <del class="old-price text-muted ms-2">{{ product.base_price }} ریال</del>
+                    {% endif %}
                 </div>
-                <p class="product-short-desc">محصولی با شخصیت بصری قوی، ساختار چوبی ممتاز و امکان شخصی‌سازی کامل برای سبک زندگی لوکس.</p>
+                <p class="product-short-desc text-secondary lh-lg">{{ product.description|striptags|truncatewords:40 }}</p>
 
-                <div class="customization-box mt-4 ultra-custom-box">
-                    <h5>شخصی‌سازی محصول</h5>
-                    <div class="option-group">
-                        <label>سایز</label>
-                        <select class="form-select">
-                            <option>استاندارد</option>
-                            <option>بزرگ</option>
-                            <option>سفارشی</option>
-                        </select>
-                    </div>
-                    <div class="option-group">
-                        <label>رنگ</label>
-                        <div class="choice-pills">
-                            <button type="button" class="active">سبز تیره</button>
-                            <button type="button">بژ طلایی</button>
-                            <button type="button">گردویی</button>
+                <div class="customization-box mt-4 ultra-custom-box p-3 border" style="border-radius: 12px; background: rgba(201, 168, 76, 0.05);">
+                    <h5 class="fw-bold mb-3 text-brand-green"><i class="fa-solid fa-sliders me-2"></i> شخصی‌سازی محصول</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">نوع چوب</label>
+                            <select class="form-select form-select-sm">
+                                <option>چوب راش طبیعی درجه یک (استاندارد)</option>
+                                <option>چوب گردوی آمریکایی (+ ۳,۰۰۰,۰۰۰ ریال)</option>
+                                <option>چوب بلوط اروپایی (+ ۲,۵۰۰,۰۰۰ ریال)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">جنس و رنگ پارچه</label>
+                            <select class="form-select form-select-sm">
+                                <option>مخمل وارداتی درجه یک (سبز زمردی)</option>
+                                <option>چرم طبیعی ممتاز (+ ۵,۰۰۰,۰۰۰ ریال)</option>
+                                <option>کتان / گونی‌بافت لوکس (بژ طلایی)</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="option-group">
-                        <label>نوع پارچه</label>
-                        <select class="form-select">
-                            <option>استاندارد</option>
-                            <option>مخمل</option>
-                            <option>لوکس وارداتی</option>
-                        </select>
-                    </div>
                 </div>
 
-                <div class="product-actions d-flex flex-wrap gap-3 mt-4">
-                    <div class="qty-box">
-                        <button type="button">-</button>
-                        <input type="number" min="1" value="1">
-                        <button type="button">+</button>
+                <form method="post" action="{% url 'cart:add' product.id %}" id="addToCartForm" class="product-actions d-flex flex-wrap align-items-center gap-3 mt-4">
+                    {% csrf_token %}
+                    <div class="qty-box d-flex align-items-center border rounded px-2 bg-white" style="height: 50px;">
+                        <button type="button" class="btn btn-sm btn-link text-dark text-decoration-none" onclick="let el=this.nextElementSibling; if(el.value>1) el.value--;">-</button>
+                        <input type="number" name="quantity" min="1" value="1" class="form-control form-control-sm border-0 text-center fw-bold" style="width: 50px;">
+                        <button type="button" class="btn btn-sm btn-link text-dark text-decoration-none" onclick="this.previousElementSibling.value++;">+</button>
                     </div>
-                    <button class="btn btn-brand pulse-on-hover">افزودن به سبد خرید</button>
-                    <button class="btn btn-brand-outline">علاقه‌مندی</button>
-                </div>
+                    <button type="submit" class="btn btn-brand btn-lg pulse-on-hover px-4 py-3 fw-bold flex-grow-1">
+                        <i class="fa-solid fa-cart-shopping me-2"></i> افزودن به سبد خرید
+                    </button>
+                    <a href="{% url 'orders:custom_request' %}" class="btn btn-outline-dark btn-lg px-4 py-3 fw-bold" title="سفارش با ابعاد و عکس اختصاصی">
+                        <i class="fa-solid fa-wand-magic-sparkles me-2"></i> استعلام ساخت با ابعاد دلخواه
+                    </a>
+                </form>
             </div>
         </div>
 
         <div class="product-tabs mt-5">
             <ul class="nav nav-pills luxury-tabs mb-4">
-                <li class="nav-item"><button class="nav-link active">توضیحات</button></li>
-                <li class="nav-item"><button class="nav-link">مشخصات فنی</button></li>
-                <li class="nav-item"><button class="nav-link">نظرات</button></li>
+                <li class="nav-item"><button class="nav-link active">توضیحات تکمیلی و متریال</button></li>
+                <li class="nav-item"><button class="nav-link">مشخصات فنی و ارگونومی</button></li>
+                <li class="nav-item"><button class="nav-link">نظرات مشتریان (۴)</button></li>
             </ul>
-            <div class="tab-content luxury-tab-content ultra-rich-pane">
-                <p>
-                    این صفحه با هدف انتقال کیفیت ادراکی بالاتر طراحی شده است؛ به‌گونه‌ای که محصول نه فقط دیده شود،
-                    بلکه حس ممتاز بودن آن در ریتم صفحه و فضای اطرافش نیز احساس شود.
-                </p>
+            <div class="tab-content luxury-tab-content ultra-rich-pane p-4 bg-white border shadow-sm" style="border-radius: 12px;">
+                <div class="lh-lg text-secondary">
+                    {{ product.description|safe }}
+                </div>
             </div>
         </div>
 
-        <section class="related-products mt-5">
-            <div class="section-head"><h2>محصولات مرتبط</h2></div>
-            <div class="ultra-product-grid">
-                {% for i in '1234' %}
-                <article class="ultra-product-card">
-                    <div class="ultra-product-thumb"></div>
-                    <div class="ultra-product-body">
-                        <h3>میز مدرن هارمونیا</h3>
-                        <p>فرم refined و شخصیت آرام برای فضاهای ممتاز.</p>
-                        <div class="ultra-product-meta"><span class="price">26,000,000 ریال</span></div>
-                    </div>
-                </article>
+        <section class="related-products mt-5 pt-4 border-top">
+            <div class="section-head mb-4"><h2>محصولات مرتبط و هم‌کالکشن</h2></div>
+            <div class="ultra-product-grid row g-4">
+                {% for rel in related_products %}
+                <div class="col-md-3">
+                    <article class="ultra-product-card card h-100 border-0 shadow-sm overflow-hidden">
+                        <div class="ultra-product-thumb text-center p-3" style="background: #fdfcf9;">
+                            {% if rel.images.first %}
+                            <img src="{{ rel.images.first.image.url }}" alt="{{ rel.name }}" class="img-fluid" style="height: 180px; object-fit: contain;">
+                            {% else %}
+                            <img src="/static/assets/logo.png" alt="{{ rel.name }}" class="img-fluid" style="height: 120px; opacity: 0.7;">
+                            {% endif %}
+                        </div>
+                        <div class="ultra-product-body card-body d-flex flex-column justify-content-between p-3">
+                            <div>
+                                <h5 class="card-title fs-6 fw-bold"><a href="{{ rel.get_absolute_url }}" class="text-decoration-none text-dark">{{ rel.name }}</a></h5>
+                                <p class="text-muted small mb-2">{{ rel.description|striptags|truncatewords:10 }}</p>
+                            </div>
+                            <div class="ultra-product-meta d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+                                <span class="price fw-bold text-brand-green small">{{ rel.current_price }} ریال</span>
+                                <a href="{{ rel.get_absolute_url }}" class="btn btn-brand-outline btn-sm">مشاهده</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center text-muted py-4">محصول مرتبط دیگری در این دسته وجود ندارد.</div>
                 {% endfor %}
             </div>
         </section>
     </div>
 </section>
+
+<script>
+// اسکریپت شبیه‌سازی چرخش ۳۶۰ درجه تعاملی با کشیدن ماوس روی تصویر
+document.addEventListener("DOMContentLoaded", function() {
+    const rotateBox = document.getElementById("rotateViewBox");
+    const rotateImg = document.getElementById("rotateImg");
+    if (!rotateBox || !rotateImg) return;
+    let isDragging = false;
+    let startX = 0;
+    let currentAngle = 0;
+    
+    rotateBox.addEventListener("mousedown", (e) => { isDragging = true; startX = e.clientX; });
+    window.addEventListener("mouseup", () => { isDragging = false; });
+    rotateBox.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const diffX = e.clientX - startX;
+        if (Math.abs(diffX) > 10) {
+            currentAngle = (currentAngle + (diffX > 0 ? 15 : -15)) % 360;
+            rotateImg.style.transform = `rotateY(${currentAngle}deg)`;
+            startX = e.clientX;
+        }
+    });
+});
+</script>
 {% endblock %}

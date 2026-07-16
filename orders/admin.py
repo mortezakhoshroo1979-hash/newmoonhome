@@ -1,7 +1,7 @@
 from django.contrib import admin, messages
 from import_export.admin import ExportMixin
 
-from .models import Invoice, Order, OrderItem, OrderStatusHistory
+from .models import CustomOrderRequest, Invoice, Order, OrderItem, OrderStatusHistory
 
 
 class OrderItemInline(admin.TabularInline):
@@ -50,3 +50,18 @@ class InvoiceAdmin(admin.ModelAdmin):
 class OrderStatusHistoryAdmin(admin.ModelAdmin):
     list_display = ("order", "from_status", "to_status", "changed_by", "created_at")
     list_filter = ("from_status", "to_status")
+
+
+@admin.register(CustomOrderRequest)
+class CustomOrderRequestAdmin(ExportMixin, admin.ModelAdmin):
+    list_display = ("request_number", "receiver_name", "receiver_phone", "wood_type", "fabric_type", "status", "quoted_price", "created_at")
+    list_editable = ("status", "quoted_price")
+    list_filter = ("status", "wood_type", "finish_type", "fabric_type", "created_at")
+    search_fields = ("request_number", "receiver_name", "receiver_phone", "customer_notes", "admin_feedback")
+    readonly_fields = ("request_number", "created_at", "updated_at")
+    fieldsets = (
+        ("اطلاعات سفارش‌دهنده", {"fields": ("request_number", "user", "receiver_name", "receiver_phone", "created_at")}),
+        ("مشخصات ابعاد و متریال", {"fields": ("length_cm", "width_cm", "height_cm", "wood_type", "finish_type", "fabric_type", "fabric_color_code")}),
+        ("تصویر نمونه و توضیحات مشتری", {"fields": ("inspiration_image", "customer_notes")}),
+        ("برآورد قیمت و وضعیت ساخت (بخش مهندسی/ادمین)", {"fields": ("status", "quoted_price", "prepayment_amount", "admin_feedback", "updated_at")}),
+    )

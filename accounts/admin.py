@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from import_export.admin import ExportMixin
 
-from .models import CustomerRank, Profile, ReferralCode, ReferralTransaction, User
+from .models import CustomerRank, Profile, ReferralCode, ReferralTransaction, User, UserAPIKey
 
 
 class ProfileInline(admin.StackedInline):
@@ -39,3 +39,11 @@ class ReferralCodeAdmin(admin.ModelAdmin):
 class ReferralTransactionAdmin(admin.ModelAdmin):
     list_display = ("referral_code", "referrer", "referred_user", "reward_amount", "created_at")
     search_fields = ("referral_code__code", "referrer__username", "referred_user__username")
+
+
+@admin.register(UserAPIKey)
+class UserAPIKeyAdmin(admin.ModelAdmin):
+    list_display = ("name", "user", "key", "is_active", "created_at")
+    list_filter = ("is_active", "created_at")
+    search_fields = ("name", "user__username", "key")
+    readonly_fields = ("key", "created_at", "updated_at")

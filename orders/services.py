@@ -94,6 +94,12 @@ class OrderWorkflowService:
             note=note,
         )
 
+        try:
+            from core.services import SMSService
+            SMSService().send_order_status_update(order.receiver_phone, order.order_number, order.get_status_display())
+        except Exception:
+            pass
+
         if to_status == 'delivered':
             LoyaltyService.assign_points_for_order(order)
         return order

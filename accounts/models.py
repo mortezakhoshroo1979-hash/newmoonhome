@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import secrets
 import uuid
 
 from django.conf import settings
@@ -106,3 +107,24 @@ class ReferralTransaction(TimeStampedModel):
 
     def __str__(self):
         return f"{self.referral_code.code} -> {self.referred_user}"
+
+
+class UserAPIKey(TimeStampedModel):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="api_keys", verbose_name="کاربر")
+    name = models.CharField(max_length=150, default="کلید دسترسی همکار / موبایل", verbose_name="عنوان کلید")
+    key = models.CharField(max_length=64, unique=True, verbose_name="کلید API")
+    is_active = models.BooleanField(default=True, verbose_name="فعال")
+
+    class Meta:
+        verbose_name = "کلید API همکار/توسعه‌دهنده"
+        verbose_name_plural = "کلیدهای API همکاران/توسعه‌دهندگان"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.name} - {self.user}"
+
+    def save(self, *args, **kwargs):
+        if not self.key:
+            self.key = f"nmh_live_{secrets.token_urlsafe(32)}"
+        super().save(*args, **kwargs)
