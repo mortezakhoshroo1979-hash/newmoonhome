@@ -22,8 +22,12 @@ OPTIONAL_APPS_TO_REMOVE = {
     'debug_toolbar',
     'import_export',
     'ckeditor',
+    'drf_spectacular',
 }
 INSTALLED_APPS = [app for app in INSTALLED_APPS if app not in OPTIONAL_APPS_TO_REMOVE]
+
+if 'drf_spectacular' not in INSTALLED_APPS and 'DEFAULT_SCHEMA_CLASS' in REST_FRAMEWORK:
+    REST_FRAMEWORK['DEFAULT_SCHEMA_CLASS'] = 'rest_framework.schemas.openapi.AutoSchema'
 
 OPTIONAL_MIDDLEWARE_TO_REMOVE = {
     'debug_toolbar.middleware.DebugToolbarMiddleware',
