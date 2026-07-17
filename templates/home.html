@@ -1,127 +1,201 @@
 {% extends 'base.html' %}
-{% block title %}خانه | NEWMOON HOME{% endblock %}
+{% block title %}خانه | فروشگاه لوکس NEWMOON HOME{% endblock %}
 {% block content %}
-<section class="ultra-hero">
-    <div class="container">
-        <div class="ultra-hero-grid">
-            <div class="ultra-hero-content">
-                <span class="section-kicker">Ultra Luxury Living</span>
-                <h1>خانه را با زبان طراحی لوکس، گرم و ماندگار بازآفرینی کنید</h1>
-                <p>
-                    NEWMOON HOME تجربه‌ای ممتاز از مبلمان، چوب، جزئیات ظریف و شخصی‌سازی را
-                    در قالب فضایی آرام، باوقار و سطح‌بالا ارائه می‌دهد.
+<section class="ultra-hero position-relative overflow-hidden py-5" style="background: linear-gradient(135deg, #1a3c2a 0%, #0d2116 100%); color: #fff; min-height: 85vh; display: flex; align-items: center;">
+    <div class="container position-relative z-2">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 text-center text-lg-start">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3 d-inline-block shadow-sm">
+                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i> EST. DESIGN HOUSE · 3D / AR EXPERIENCED
+                </span>
+                <h1 class="display-3 fw-bold mb-4 lh-base text-white" style="font-family: 'Vazirmatn', sans-serif;">
+                    خانه را با زبان طراحی <span style="color: #c9a84c;">لوکس و ماندگار</span> بازآفرینی کنید
+                </h1>
+                <p class="lead mb-5 opacity-75 lh-lg">
+                    NEWMOON HOME تجربه‌ای ممتاز از مبلمان، چوب‌های کمیاب، جزئیات ظریف دست‌ساز و امکان شخصی‌سازی کامل با چرخش ۳۶۰ درجه و واقعیت افزوده (AR) را در اختیار شما می‌گذارد.
                 </p>
-                <div class="hero-actions-wrap">
-                    <a href="#featured-products" class="btn btn-brand">مشاهده کالکشن ممتاز</a>
-                    <a href="/about/" class="btn btn-brand-outline">داستان برند</a>
+                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                    <a href="#featured-products" class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill shadow" style="background: #c9a84c; border-color: #c9a84c; color: #1a3c2a;">
+                        <i class="fa-solid fa-gem me-2"></i> مشاهده کالکشن ممتاز
+                    </a>
+                    <a href="{% url 'orders:custom_request' %}" class="btn btn-outline-light btn-lg px-4 py-3 fw-bold rounded-pill" style="border-width: 2px;">
+                        <i class="fa-solid fa-sliders me-2"></i> استعلام ساخت با ابعاد اختصاصی
+                    </a>
                 </div>
-            </div>
-            <div class="ultra-hero-panel">
-                <div class="ultra-showcase-card">
-                    <span class="floating-luxury-badge">Curated Signature Collection</span>
-                    <div class="ultra-showcase-visual"></div>
-                </div>
-                <div class="ultra-stats-grid">
-                    <div class="ultra-stat-box"><strong>+120</strong><span>محصول سفارشی</span></div>
-                    <div class="ultra-stat-box"><strong>Premium</strong><span>متریال ممتاز</span></div>
-                    <div class="ultra-stat-box"><strong>Bespoke</strong><span>شخصی‌سازی کامل</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section id="featured-products" class="section-space ultra-section-bg">
-    <div class="container">
-        <div class="section-head text-center">
-            <span class="section-kicker">Curated Pieces</span>
-            <h2>محصولات ویژه</h2>
-            <p>ترکیبی از حضور باشکوه، کیفیت ادراکی بالا و هویت بصری ممتاز برای خانه‌های خاص.</p>
-        </div>
-        <div class="ultra-product-grid">
-            {% for i in '1234' %}
-            <article class="ultra-product-card">
-                <div class="ultra-product-thumb">
-                    <span class="ultra-badge">Signature</span>
-                </div>
-                <div class="ultra-product-body">
-                    <h3><a href="/products/detail/">مبل لوکس آتریا</a></h3>
-                    <p>ترکیب فرم refined، چوب ممتاز و پارچه‌ای با حس آرامش و شکوه.</p>
-                    <div class="ultra-product-meta">
-                        <span class="price">48,000,000 ریال</span>
-                        <span class="ultra-icon-circle">♡</span>
+                <div class="row g-4 mt-5 pt-3 border-top border-light border-opacity-10 text-center">
+                    <div class="col-4">
+                        <h3 class="fw-bold mb-0" style="color: #c9a84c;">+۱۲۰</h3>
+                        <small class="opacity-75">طرح سفارشی</small>
+                    </div>
+                    <div class="col-4 border-start border-end border-light border-opacity-10">
+                        <h3 class="fw-bold mb-0" style="color: #c9a84c;">۳بعدی</h3>
+                        <small class="opacity-75">مشاهده با دوربین AR</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="fw-bold mb-0" style="color: #c9a84c;">۱۰۰٪</h3>
+                        <small class="opacity-75">چوب طبیعی ممتاز</small>
                     </div>
                 </div>
-            </article>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="position-relative text-center">
+                    <div class="card border-0 shadow-lg p-3 mx-auto" style="border-radius: 24px; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); max-width: 500px;">
+                        <div class="position-relative overflow-hidden rounded-4 mb-3" style="background: #fdfcf9; height: 380px; display: flex; align-items: center; justify-content: center;">
+                            <span class="badge bg-dark position-absolute top-0 start-0 m-3 px-3 py-2 shadow">
+                                <i class="fa-solid fa-cube me-1"></i> Signature 3D Showcase
+                            </span>
+                            <img src="/static/assets/logo.png" alt="NEWMOON HOME Luxury Showcase" class="img-fluid" style="max-height: 300px; object-fit: contain;">
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center px-2 py-1 text-white">
+                            <div class="text-start">
+                                <h5 class="mb-0 fw-bold">کالکشن امضای نیومون</h5>
+                                <small class="opacity-75">چوب گردو · پارچه بوکله بافت‌دار</small>
+                            </div>
+                            <a href="/products/" class="btn btn-sm btn-outline-warning rounded-pill px-3 py-2 fw-bold">
+                                کاوش ۳بعدی <i class="fa-solid fa-arrow-left ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="featured-products" class="section-space py-5" style="background: #fdfcf9;">
+    <div class="container py-4">
+        <div class="section-head text-center mb-5">
+            <span class="badge bg-warning text-dark px-3 py-1 rounded-pill mb-2 fw-bold">Curated Pieces</span>
+            <h2 class="display-6 fw-bold text-brand-green mb-3">محصولات ویژه و امضای برند</h2>
+            <p class="text-muted mx-auto" style="max-width: 650px;">ترکیبی از حضور باشکوه، کیفیت ادراکی بالا و قابلیت چرخش ۳۶۰ درجه برای خانه‌های خاص.</p>
+        </div>
+
+        <div class="row g-4">
+            {% for product in featured_products %}
+            <div class="col-md-6 col-lg-3">
+                <article class="card h-100 border-0 shadow-sm overflow-hidden transition-all" style="border-radius: 18px; background: #fff;">
+                    <div class="position-relative text-center p-4" style="background: #f8f6f0; height: 240px; display: flex; align-items: center; justify-content: center;">
+                        <span class="badge bg-dark position-absolute top-0 start-0 m-3 px-3 py-1 rounded-pill">ویژه</span>
+                        {% if product.images.first %}
+                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="img-fluid" style="max-height: 200px; object-fit: contain;"></a>
+                        {% else %}
+                        <a href="{{ product.get_absolute_url }}"><img src="/static/assets/logo.png" alt="{{ product.name }}" class="img-fluid" style="max-height: 150px; opacity: 0.8;"></a>
+                        {% endif %}
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <small class="text-brand-gold fw-bold d-block mb-1">{{ product.category.name }}</small>
+                            <h4 class="fs-5 fw-bold mb-2"><a href="{{ product.get_absolute_url }}" class="text-decoration-none text-dark">{{ product.name }}</a></h4>
+                            <p class="text-muted small mb-3 lh-base">{{ product.description|striptags|truncatewords:14 }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-2">
+                            <span class="price fw-bold text-brand-green fs-6">{{ product.current_price }} ریال</span>
+                            <a href="{{ product.get_absolute_url }}" class="btn btn-sm rounded-pill px-3 py-2 fw-bold" style="background: #1a3c2a; color: #fff;">
+                                <i class="fa-solid fa-cube me-1"></i> مشاهده ۳بعدی
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted py-5">
+                <i class="fa-solid fa-box-open fs-1 mb-3 d-block"></i>
+                <h5>محصول ویژه‌ای در حال حاضر موجود نیست. برای ساخت دیتای نمونه دستور `python manage_android.py seed_demo_data` را اجرا کنید.</h5>
+            </div>
             {% endfor %}
         </div>
-    </div>
-</section>
 
-<section class="section-space">
-    <div class="container ultra-editorial-block">
-        <div class="ultra-editorial-visual"></div>
-        <div class="ultra-editorial-content">
-            <span class="section-kicker">Editorial Mood</span>
-            <h2>طراحی لوکس فقط در رنگ نیست؛ در سکوت، نسبت‌ها و ریتم فضا معنا پیدا می‌کند</h2>
-            <p>
-                این نسخه از سایت تلاش می‌کند NEWMOON HOME را نه فقط به‌عنوان یک فروشگاه،
-                بلکه به‌عنوان یک برند ممتاز با روایت طراحی مشخص نمایش دهد.
-            </p>
-            <a href="/products/" class="btn btn-brand">ورود به کالکشن</a>
+        <div class="text-center mt-5">
+            <a href="/products/" class="btn btn-outline-dark btn-lg px-5 py-3 fw-bold rounded-pill shadow-sm">
+                مشاهده تمامی محصولات فروشگاه <i class="fa-solid fa-arrow-left ms-2"></i>
+            </a>
         </div>
     </div>
 </section>
 
-<section class="section-space ultra-dark-banner-wrap">
-    <div class="container">
-        <div class="ultra-dark-banner">
-            <div>
-                <span class="section-kicker text-light-gold">Private Design Service</span>
-                <h2>برای سفارش‌های اختصاصی، با تیم طراحی NEWMOON HOME در ارتباط باشید</h2>
-                <p>از انتخاب متریال تا ابعاد و پارچه، همه‌چیز می‌تواند متناسب با فضای شما طراحی شود.</p>
+<section class="section-space py-5" style="background: #1a3c2a; color: #fff;">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge bg-warning text-dark px-3 py-1 rounded-pill mb-3 fw-bold">Private Bespoke Service</span>
+                <h2 class="display-6 fw-bold mb-4 lh-base" style="color: #c9a84c;">برای ساخت مبلمان با ابعاد و عکس دلخواه شما، با تیم طراحی در ارتباط باشید</h2>
+                <p class="lead opacity-75 mb-4 lh-lg">
+                    از انتخاب متریال چوب (راش، گردو، بلوط) تا ابعاد میلی‌متری و نوع پارچه (مخمل، چرم، کتان)، هر پروژه با نگاه شخصی‌سازی‌شده و استانداردهای لوکس اجرا می‌شود.
+                </p>
+                <ul class="list-unstyled mb-5 opacity-90 lh-lg">
+                    <li><i class="fa-solid fa-check text-warning me-2"></i> امکان آپلود عکس الهام‌بخش یا اسکچ دستی</li>
+                    <li><i class="fa-solid fa-check text-warning me-2"></i> برآورد مهندسی و اعلام قیمت توسط کارشناسان</li>
+                    <li><i class="fa-solid fa-check text-warning me-2"></i> پیگیری زنده مراحل ساخت در پنل کاربری (برش ➔ نجاری ➔ رویه‌کوبی)</li>
+                </ul>
+                <a href="{% url 'orders:custom_request' %}" class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill shadow" style="background: #c9a84c; border-color: #c9a84c; color: #1a3c2a;">
+                    <i class="fa-solid fa-wand-magic-sparkles me-2"></i> ثبت آنلاین استعلام ساخت اختصاصی
+                </a>
             </div>
-            <a href="/contact/" class="btn btn-brand-light">درخواست مشاوره</a>
-        </div>
-    </div>
-</section>
-
-<section class="section-space">
-    <div class="container">
-        <div class="section-head text-center">
-            <span class="section-kicker">Client Impression</span>
-            <h2>نظرات مشتریان</h2>
-        </div>
-        <div class="ultra-testimonials-grid">
-            <div class="ultra-quote-card">
-                <p>کیفیت ساخت و وقار طراحی دقیقاً همان چیزی بود که از یک برند لوکس انتظار داشتم.</p>
-                <strong>نسترن احمدی</strong>
-                <small>خریدار سرویس خواب الیت</small>
-            </div>
-            <div class="ultra-quote-card">
-                <p>شخصی‌سازی محصول باعث شد خروجی نهایی کاملاً مناسب فضای خانه‌ام باشد.</p>
-                <strong>مانی شریفی</strong>
-                <small>خریدار مبل آتریا</small>
-            </div>
-            <div class="ultra-quote-card">
-                <p>از نگاه برند، همه‌چیز حس ممتاز و حرفه‌ای داشت؛ از مشاوره تا تحویل.</p>
-                <strong>غزل موسوی</strong>
-                <small>خریدار میز مون</small>
+            <div class="col-lg-6 text-center">
+                <div class="card border-0 p-4 shadow-lg mx-auto" style="border-radius: 20px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); max-width: 480px;">
+                    <h4 class="fw-bold mb-3 text-warning"><i class="fa-solid fa-ruler-combined me-2"></i> مشخصات سفارشی دلخواه</h4>
+                    <div class="bg-white text-dark p-4 rounded-4 text-start shadow-sm">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted small">نوع چوب درخواستی:</span>
+                            <strong class="text-brand-green">چوب گردوی آمریکایی</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted small">ابعاد سفارشی:</span>
+                            <strong class="text-brand-green">۲۴۰ × ۱۱۰ × ۸۵ سانتی‌متر</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                            <span class="text-muted small">جنس پارچه:</span>
+                            <strong class="text-brand-green">مخمل وارداتی کد V-104</strong>
+                        </div>
+                        <div class="text-center">
+                            <span class="badge bg-success px-3 py-2 w-100 fs-6">وضعیت: در حال رویه‌کوبی و خیاطی پارچه (۸۵٪)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section-space section-soft">
-    <div class="container">
-        <div class="newsletter-box text-center ultra-newsletter-box">
-            <span class="section-kicker">Private List</span>
-            <h2>عضویت در خبرنامه اختصاصی</h2>
-            <p>برای دریافت کالکشن‌های جدید، پیشنهادهای ویژه و دعوت‌نامه‌های اختصاصی ایمیل خود را ثبت کنید.</p>
-            <form class="newsletter-form mx-auto">
-                <input type="email" class="form-control" placeholder="ایمیل شما">
-                <button type="submit" class="btn btn-brand">عضویت در لیست خصوصی</button>
-            </form>
+<section class="section-space py-5" style="background: #fff;">
+    <div class="container py-4">
+        <div class="section-head text-center mb-5">
+            <span class="badge bg-dark text-white px-3 py-1 rounded-pill mb-2 fw-bold">Client Impressions</span>
+            <h2 class="display-6 fw-bold text-brand-green">تجربه مشتریان ممتاز</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border p-4 shadow-sm" style="border-radius: 16px; background: #fdfcf9;">
+                    <div class="text-warning mb-3">★★★★★</div>
+                    <p class="text-secondary lh-lg mb-4">«کیفیت ساخت و وقار طراحی دقیقاً همان چیزی بود که از یک برند لوکس انتظار داشتم. قابلیت مشاهده ۳بعدی و چرخش کالا در تصمیم‌گیری خیلی به من کمک کرد.»</p>
+                    <div>
+                        <strong class="d-block text-brand-green">نسترن احمدی</strong>
+                        <small class="text-muted">خریدار سرویس خواب الیت</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border p-4 shadow-sm" style="border-radius: 16px; background: #fdfcf9;">
+                    <div class="text-warning mb-3">★★★★★</div>
+                    <p class="text-secondary lh-lg mb-4">«شخصی‌سازی ابعاد میز ناهارخوری باعث شد خروجی نهایی کاملاً مناسب سالن پذیرایی خانه‌ام باشد. پیگیری مراحل نجاری و رنگ از پنل کاربری عالی بود.»</p>
+                    <div>
+                        <strong class="d-block text-brand-green">مانی شریفی</strong>
+                        <small class="text-muted">خریدار میز ناهارخوری ۶ نفره مون</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border p-4 shadow-sm" style="border-radius: 16px; background: #fdfcf9;">
+                    <div class="text-warning mb-3">★★★★★</div>
+                    <p class="text-secondary lh-lg mb-4">«از نگاه برند، همه‌چیز حس ممتاز و حرفه‌ای داشت؛ از مشاوره مهندسی تا تحویل به موقع و کیفیت بی‌نظیر چوب راش و پارچه مخمل.»</p>
+                    <div>
+                        <strong class="d-block text-brand-green">غزل موسوی</strong>
+                        <small class="text-muted">خریدار مبل راحتی چستر نیومون</small>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
