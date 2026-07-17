@@ -90,6 +90,16 @@ class ReferralCode(TimeStampedModel):
         return f"{self.code} - {self.user}"
 
 
+try:
+    _referral_check_constraint = models.CheckConstraint(
+        condition=~Q(referrer=models.F("referred_user")), name="referral_no_self_referral"
+    )
+except TypeError:
+    _referral_check_constraint = models.CheckConstraint(
+        check=~Q(referrer=models.F("referred_user")), name="referral_no_self_referral"
+    )
+
+
 class ReferralTransaction(TimeStampedModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     referral_code = models.ForeignKey('accounts.ReferralCode', on_delete=models.CASCADE, related_name="transactions", verbose_name="کد معرف")
@@ -103,7 +113,7 @@ class ReferralTransaction(TimeStampedModel):
         verbose_name = "تراکنش معرفی"
         verbose_name_plural = "تراکنش‌های معرفی"
         ordering = ["-created_at"]
-        constraints = [models.CheckConstraint(check=~Q(referrer=models.F("referred_user")), name="referral_no_self_referral")]
+        constraints = [_referral_check_constraint]
 
     def __str__(self):
         return f"{self.referral_code.code} -> {self.referred_user}"
