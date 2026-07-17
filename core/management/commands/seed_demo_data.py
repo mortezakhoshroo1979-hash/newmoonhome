@@ -153,14 +153,20 @@ class Command(BaseCommand):
                     'description': item['description'],
                 }
             )
-            if not created and prod.slug != item['slug']:
-                prod.slug = item['slug']
-                prod.save(update_fields=['slug'])
+            prod.name = item['name']
+            prod.slug = item['slug']
+            prod.is_active = True
+            prod.is_featured = item['is_featured']
+            prod.base_price = item['base_price']
+            prod.special_price = item['special_price']
+            prod.save()
+
             if created:
                 created_count += 1
-                if os.path.exists(logo_path) and not prod.images.exists():
-                    with open(logo_path, 'rb') as f:
-                        img = ProductImage(product=prod, alt_text=prod.name, is_feature=True, sort_order=1)
-                        img.image.save(f'{prod.sku}.png', File(f), save=True)
+
+            if os.path.exists(logo_path) and not prod.images.exists():
+                with open(logo_path, 'rb') as f:
+                    img = ProductImage(product=prod, alt_text=prod.name, is_feature=True, sort_order=1)
+                    img.image.save(f'{prod.sku}.png', File(f), save=True)
 
         self.stdout.write(self.style.SUCCESS(f'تعداد محصولات جدید ایجاد شده: {created_count} | مجموع محصولات اکنون: {Product.objects.count()}'))
