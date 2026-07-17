@@ -165,6 +165,7 @@ MELLAT_TERMINAL_ID = config('MELLAT_TERMINAL_ID', default='')
 MELLAT_USERNAME = config('MELLAT_USERNAME', default='')
 MELLAT_PASSWORD = config('MELLAT_PASSWORD', default='')
 
+os.makedirs(BASE_DIR / 'logs', exist_ok=True)
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
