@@ -1,4 +1,6 @@
+import io
 import os
+import urllib.request
 from decimal import Decimal
 from django.core.files import File
 from django.core.management.base import BaseCommand
@@ -6,7 +8,7 @@ from products.models import Brand, Category, Product, ProductImage
 
 
 class Command(BaseCommand):
-    help = 'ایجاد داده‌های نمونه (۳ دسته‌بندی، ۱ برند، ۸ محصول با تصاویر placeholder)'
+    help = 'ایجاد داده‌های نمونه (۳ دسته‌بندی، ۱ برند، ۸ محصول با تصاویر اختصاصی لوکس)'
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.NOTICE('در حال ایجاد دسته‌بندی‌ها...'))
@@ -164,9 +166,43 @@ class Command(BaseCommand):
             if created:
                 created_count += 1
 
-            if os.path.exists(logo_path) and not prod.images.exists():
-                with open(logo_path, 'rb') as f:
-                    img = ProductImage(product=prod, alt_text=prod.name, is_feature=True, sort_order=1)
-                    img.image.save(f'{prod.sku}.png', File(f), save=True)
+            img_obj = prod.images.filter(is_feature=True).first() or prod.images.first()
+            if not img_obj or 'NMH-PROD' not in str(img_obj.image.name) or not os.path.exists(img_obj.image.path):
+                try:
+                    from PIL import Image, ImageDraw
+                    colors = [
+                        (26, 60, 42),   # Forest Green
+                        (44, 30, 20),   # Walnut Brown
+                        (20, 32, 48),   # Midnight Blue
+                        (50, 42, 34),   # Charcoal Oak
+                        (38, 54, 40),   # Emerald Wood
+                        (56, 40, 28),   # Mahogany
+                        (28, 44, 48),   # Sage
+                        (48, 36, 30),   # Teak
+                    ]
+                    idx = int(prod.sku.split('-')[-1]) % len(colors)
+                    bg_color = colors[idx]
+                    img_pil = Image.new('RGB', (800, 600), color=bg_color)
+                    draw = ImageDraw.Draw(img_pil)
+                    
+                    # Gold border frame
+                    draw.rectangle([20, 20, 780, 580], outline=(201, 168, 76), width=4)
+                    draw.rectangle([32, 32, 768, 568], outline=(201, 168, 76), width=1)
+                    
+                    # Luxury Gold Accent Banner in center
+                    draw.rectangle([150, 240, 650, 360], fill=(201, 168, 76))
+                    
+                    buf = io.BytesIO()
+                    img_pil.save(buf, format='JPEG', quality=92)
+                    buf.seek(0)
+                    
+                    if not img_obj:
+                        img_obj = ProductImage(product=prod, alt_text=prod.name, is_feature=True, sort_order=1)
+                    img_obj.image.save(f'{prod.sku}_luxury.jpg', File(buf), save=True)
+                except Exception as e:
+                    if os.path.exists(logo_path) and not img_obj:
+                        with open(logo_path, 'rb') as f:
+                            img = ProductImage(product=prod, alt_text=prod.name, is_feature=True, sort_order=1)
+                            img.image.save(f'{prod.sku}.png', File(f), save=True)
 
         self.stdout.write(self.style.SUCCESS(f'تعداد محصولات جدید ایجاد شده: {created_count} | مجموع محصولات اکنون: {Product.objects.count()}'))
