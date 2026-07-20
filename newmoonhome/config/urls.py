@@ -30,6 +30,7 @@ urlpatterns = [
     path('orders/', include('orders.urls')),
     path('accounts/', include('accounts.urls')),
     path('payments/', include('payments.urls')),
+    path('api/', include('core.api.urls')),
     path('api/v1/', include('newmoonhome.config.api.v1.urls')),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),

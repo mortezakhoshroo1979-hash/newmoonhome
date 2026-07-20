@@ -91,6 +91,7 @@ class SiteSetting(TimeStampedModel):
     address = models.TextField(blank=True, verbose_name='آدرس')
     social_links = models.JSONField(default=dict, blank=True, verbose_name='شبکه‌های اجتماعی')
     seo_meta = models.JSONField(default=dict, blank=True, verbose_name='تنظیمات سئو')
+    lovable_config = models.JSONField(default=dict, blank=True, verbose_name='تنظیمات فرانت‌اند Lovable')
 
     class Meta:
         verbose_name = 'تنظیمات سایت'

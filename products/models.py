@@ -166,7 +166,7 @@ class ProductVideo(TimeStampedModel):
 
 class ProductThreeD(TimeStampedModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    product = models.ForeignKey('products.Product', on_delete=models.CASCADE, related_name='three_d_files', verbose_name='محصول')
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE, related_name='three_d_files', verbose_name='محصول', null=True, blank=True)
     title = models.CharField(max_length=255, blank=True, verbose_name='عنوان')
     file = models.FileField(upload_to='products/3d/', verbose_name='فایل سه‌بعدی')
     preview_image = models.ImageField(upload_to='products/3d/previews/', null=True, blank=True, verbose_name='تصویر پیش‌نمایش')
