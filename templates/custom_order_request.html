@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}سفارش و استعلام اختصاصی | NEWMOON HOME{% endblock %}
+{% block content %}
+<section class="page-hero-sm ultra-page-hero">
+    <div class="container">
+        <span class="section-kicker text-light-gold">Bespoke Living · Tailor-Made</span>
+        <h1>سفارش ساخت و استعلام اختصاصی</h1>
+        <p>ابعاد، متریال، نوع چوب و پارچه دلخواه خود را مشخص کنید و تصویر نمونه را آپلود نمایید تا تیم مهندسی برآورد دقیق را اعلام کند.</p>
+    </div>
+</section>
+
+<section class="section-space">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="form-section-card ultra-form-card p-4 p-xl-5 shadow-lg border-0" style="background: rgba(26, 60, 42, 0.03); border-radius: 16px;">
+                    <form method="post" enctype="multipart/form-data" class="luxury-form">
+                        {% csrf_token %}
+                        <div class="mb-5">
+                            <h4 class="text-brand-green mb-3 border-bottom pb-2">۱. اطلاعات سفارش‌دهنده</h4>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">نام و نام خانوادگی *</label>
+                                    <input type="text" name="receiver_name" class="form-control" value="{{ request.user.get_full_name|default:request.user.username }}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">شماره موبایل / تلفن *</label>
+                                    <input type="tel" name="receiver_phone" class="form-control" value="{{ getattr(request.user.profile, 'phone', '')|default:'' }}" placeholder="09120000000" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <h4 class="text-brand-green mb-3 border-bottom pb-2">۲. ابعاد درخواستی (سانتی‌متر)</h4>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">طول (Length)</label>
+                                    <input type="number" name="length_cm" class="form-control" placeholder="مثلاً: 220" min="1">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">عرض (Width / Depth)</label>
+                                    <input type="number" name="width_cm" class="form-control" placeholder="مثلاً: 95" min="1">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">ارتفاع (Height)</label>
+                                    <input type="number" name="height_cm" class="form-control" placeholder="مثلاً: 80" min="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <h4 class="text-brand-green mb-3 border-bottom pb-2">۳. انتخاب متریال و پوشش</h4>
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">نوع چوب</label>
+                                    <select name="wood_type" class="form-select">
+                                        {% for code, label in wood_choices %}
+                                        <option value="{{ code }}">{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">نوع رنگ و پوشش سطح</label>
+                                    <select name="finish_type" class="form-select">
+                                        {% for code, label in finish_choices %}
+                                        <option value="{{ code }}">{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">جنس پارچه</label>
+                                    <select name="fabric_type" class="form-select">
+                                        {% for code, label in fabric_choices %}
+                                        <option value="{{ code }}">{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">کد / نام رنگ پارچه یا چوب (اختیاری)</label>
+                                    <input type="text" name="fabric_color_code" class="form-control" placeholder="مثلاً: سبز زمردی کد V-104 یا گردویی تیره">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <h4 class="text-brand-green mb-3 border-bottom pb-2">۴. تصویر نمونه و توضیحات</h4>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">آپلود تصویر الهام‌بخش یا اسکچ (اختیاری)</label>
+                                    <input type="file" name="inspiration_image" class="form-control" accept=".jpg,.jpeg,.png,.webp,.pdf">
+                                    <small class="text-muted d-block mt-1">فرمت‌های مجاز: JPG, PNG, WEBP, PDF</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">توضیحات تکمیلی یا جزئیات خاص</label>
+                                    <textarea name="customer_notes" class="form-control" rows="4" placeholder="هر توضیح یا نیاز خاصی در طراحی، دوخت یا ارگونومی دارید اینجا بنویسید..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-brand btn-lg px-5 py-3 fw-bold w-100 w-md-auto">
+                                <i class="fa-solid fa-paper-plane me-2"></i> ثبت استعلام و ارسال جهت برآورد قیمت
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
