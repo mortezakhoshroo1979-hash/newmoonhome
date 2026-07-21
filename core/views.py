@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
@@ -19,6 +21,16 @@ class HomeView(SeoContextMixin, TemplateView):
     template_name = 'home.html'
     seo_title = 'NEWMOON HOME | فروشگاه لوکس مبلمان و محصولات چوبی'
     seo_description = 'فروشگاه آنلاین مبلمان، سرویس خواب، میز و محصولات چوبی با طراحی لوکس و امکان شخصی‌سازی.'
+
+    def get(self, request, *args, **kwargs):
+        # بررسی خودکار آیا پوشه فرانت‌اند Lovable در ریشه پروژه قرار دارد
+        dist_index = settings.BASE_DIR / 'frontend' / 'dist' / 'index.html'
+        if dist_index.exists():
+            return HttpResponse(dist_index.read_text(encoding='utf-8'))
+        raw_index = settings.BASE_DIR / 'frontend' / 'index.html'
+        if raw_index.exists():
+            return HttpResponse(raw_index.read_text(encoding='utf-8'))
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
